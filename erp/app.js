@@ -6,8 +6,12 @@ const express = require('express'),
       app = express(),
       bodyParser = require('body-parser'),
       pg = require('pg'),
-      conet = require('./connect');
+      conet = require('./connect'),
+      cors = require('cors');
 
+
+// cors
+app.use(cors());
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 
