@@ -6,10 +6,10 @@ const pg = require('pg');
 //var dbpool = "postgres://raul:raul@localhost:5432/erp";
 
 var dbpool = ({
-	  user: 'postgres',
-	  host: '18.222.14.187',
+	  user: 'raul',
+	  host: 'localhost',
 	  database: 'erp',
-	  password: 'day?0208A',
+	  password: 'raul',
 	  port: 5432,
 	});
 
