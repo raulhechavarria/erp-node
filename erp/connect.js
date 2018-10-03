@@ -2,8 +2,26 @@
  * http://usejsdoc.org/
  */
 
-const pg = require('pg');
+//const pg = require('pg');
 //var dbpool = "postgres://raul:raul@localhost:5432/erp";
+
+const { Pool, Client } = require('pg')
+
+const client = new Client({
+	 user: 'raul',
+	  host: 'localhost',
+	  database: 'erp',
+	  password: 'raul',
+	  port: 5432,
+	});
+
+
+client.connect()
+
+
+
+
+/*
 
 var dbpool = ({
 	  user: 'raul',
@@ -15,7 +33,7 @@ var dbpool = ({
 
 var client = new pg.Client(dbpool);
 client.connect();
-
+*/
 
 //npm start
 
@@ -23,6 +41,6 @@ client.connect();
  * pool.on('error', (err, client) => { logger.error({category: 'DB', msg:
  * err.message}); });
  */
-exports.dbpool = dbpool;
-exports.pg = pg;
+//exports.dbpool = dbpool;
+//exports.pg = pg;
 exports.client = client;

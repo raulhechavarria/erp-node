@@ -5,16 +5,18 @@
 const conn = require('../connect.js');
 
 function find(res1){	
-	conn.client.query('select * from product', (err, res) => {
+	//conn.client.connect()
+	conn.client.query('select *, id as value, name as label from product', (err, res) => {
 	  if (err) throw err
 	  res1.status(200).json(res.rows)
+	//  conn.client.release();
 	});	  
 };
 
 function findbyid(id,res1){
 	var obj;
 	conn.client.query("SELECT * FROM product WHERE id = $1", [id], (err, res) => {
-		  if (err) throw err
+		  if (err) console.log('error finding')
 		  
 		  if (res1 == null) {
 			 // console.log(res.rows[0]);
@@ -48,17 +50,16 @@ function save(product){
 function del(id){
 	if (id) {
 		conn.client.query("DELETE FROM product WHERE id = $1",[id], (err,res) =>{
-			 if (err) throw err
-			
+			 if (err) console.log('error deleted');
+			// console.log(res1);
 		});
 	} 
 };
 
 
-
 function myFunction(id,res1) {
 	conn.client.query("SELECT * FROM product WHERE id = $1", [id], (err, res) => {
-		  if (err) throw err
+		  if (err) console.log('error deleted')
 			  res1 =  res.rows[0];
 			//  console.log(res1);
 		});

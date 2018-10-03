@@ -7,13 +7,18 @@ const ordersproduct = require('../models/ordersproduct');
 
 
 function find(res1){	
+	//const client = new Client()
+	//conn.client.connect()
 	conn.client.query('select * from orders', (err, res) => {
 	  if (err) throw err
 	// console.log(res)
 	  res1.status(200).json(res.rows)
-	// conn.client.end()
-	});	  
+	 // conn.client.end();
+	//  conn.client.release();
+	});
+  //   
 };
+
 
 function findTopCustomer(res1){	
 	conn.client.query('SELECT customer.name as name, count(orders.idcustomer) as total  FROM orders INNER JOIN customer ON customer.id = orders.idcustomer group by name order by total desc limit 3', (err, res) => {
@@ -35,6 +40,7 @@ function findbyid(id,res1){
 };
 
 function save(order, res1){
+
 		  var  sql = 'INSERT INTO orders(numberorder,date, idcustomer, paymenttype) values($1,$2,$3,$4) RETURNING id';
 		  var  values = [ order.numberorder, order.date, order.idcustomer,  order.paymenttype];
 		  var idorders1;
@@ -44,7 +50,7 @@ function save(order, res1){
 				  } else {
 					  res1.status(200).json(res.rows[0].id);
 					  idorders1 = res.rows[0].id;
-			/*		  order.products.forEach( function(value, index, array) {
+					  order.products.forEach( function(value, index, array) {
 						  const ordersproduct1 = ({
 							  idproduct : value.id,
 							  idorders: idorders1,
@@ -52,7 +58,7 @@ function save(order, res1){
 						  ordersproduct.save(ordersproduct1);  
 						  // console.log("En el índice " + indice + " hay este
 							// valor: " + valor);
-						});*/
+						});
 				  } 
 		});
 };

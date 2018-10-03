@@ -5,15 +5,16 @@
 const conn = require('../connect.js');
 
 function find(res1){	
+	//conn.client.connect()
 	conn.client.query('select * from customer', (err, res) => {
-	  if (err) throw err
+	  if (err) console.log('error finding')
 	  res1.status(200).json(res.rows)
 	});	  
 };
 
 function findbyid(id,res1){
 	conn.client.query("SELECT * FROM customer WHERE id = $1", [id], (err, res) => {
-		  if (err) throw err
+		  if (err) console.log('error findy by id')
 		  res1.status(200).json(res.rows[0])
 		// conn.client.end()
 		  
@@ -41,11 +42,11 @@ function save(customer,res1){
 	}
 };
 
+
 function del(id){
 	if (id) {
 		conn.client.query('DELETE FROM customer WHERE id = $1', [id], (err, res) => {
-			  if (err) throw err
-			  console.log(res)
+			  if (err) console.log('error deleted')
 		    //  client.end()
 		});
 	} 

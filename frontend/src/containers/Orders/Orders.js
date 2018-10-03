@@ -69,15 +69,17 @@ class Orders extends Component {
           <h3>List Orders <Link to='/orders/new' className='btn btn-primary'>New</Link></h3>
           <div className='row'>
             <div className='col-md-3'>numberorder</div>
-            <div className='col-md-3'>date</div>
+            <div className='col-md-3'>Date</div>
             <div className='col-md-3'>Actions</div>   
           </div>
           {orders.map((order, i) =>
             <div className='row' key={i}>
               <div className='col-md-3'>{order.numberorder}</div>
-              <div className='col-md-3'>{order.date}</div>
               <div className='col-md-3'>
-                <a href={'/orders/edit/' + order.id}>Edit</a>
+ {order.date}            
+              </div>
+              <div className='col-md-3'>
+              
                 <a href='' onClick={(e) => this.onDelete(e, order.id)}>Delete</a>
               </div>
             </div>

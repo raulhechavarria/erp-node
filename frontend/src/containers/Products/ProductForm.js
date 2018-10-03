@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import axios from 'axios'
+import './ProductForm.css'
 
 class ProductForm extends Component {
   constructor () {

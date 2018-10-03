@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
-import Home from './containers/Home'
+import Home from './containers/Home/Home'
 import Customers from './containers/Customers/Customers'
 import Products from './containers/Products/Products'
 import Orders from './containers/Orders/Orders'
@@ -15,7 +15,7 @@ class App extends Component {
   render () {
     return (
       <Router>
-        <div className='App container'>
+        <div className='Appcontainer'>
           <ul>
             <li>
               <Link to='/'>Home</Link>

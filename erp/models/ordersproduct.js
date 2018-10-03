@@ -5,30 +5,11 @@
 const conn = require('../connect.js');
 const product = require('../models/product');
 
-function save(ordersproduct){
-		conn.client.query({
-		    name: 'insert ordersproduct',
-		    text: "INSERT INTO ordersproduct(idproduct,idorders) values($1,$2)",
-		    values: [ ordersproduct.idproduct, ordersproduct.idorders]
-		});
-};
-
-
-function delOrder(id){
-	if (id) {
-		conn.client.query({
-		    name: 'delete ordersproduct',
-		    text: "DELETE FROM ordersproduct WHERE idorders = $1",
-		    values: [id]
-		});
-	} 
-};
-
 function find(res1){	
 	conn.client.query('select * from ordersproduct', (err, res) => {
 	  if (err) throw err
 	// console.log(res)
-	  res1.status(200).json(res)
+	  res1.status(200).json(res.rows)
 	// conn.client.end()
 	});	  
 };
@@ -56,6 +37,25 @@ function findTopProduct(res1){
 	  res1.status(200).json(res.rows)
 	// conn.client.end()
 	});	  
+};
+
+function save(ordersproduct){
+		conn.client.query({
+		    name: 'insert ordersproduct',
+		    text: "INSERT INTO ordersproduct(idproduct,idorders) values($1,$2)",
+		    values: [ ordersproduct.idproduct, ordersproduct.idorders]
+		});
+};
+
+
+function delOrder(id){
+	if (id) {
+		conn.client.query({
+		    name: 'delete ordersproduct',
+		    text: "DELETE FROM ordersproduct WHERE idorders = $1",
+		    values: [id]
+		});
+	} 
 };
 
 exports.findTopProduct = findTopProduct

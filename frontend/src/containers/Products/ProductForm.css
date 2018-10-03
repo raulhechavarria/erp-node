@@ -1,0 +1,11 @@
+@charset "ISO-8859-1";
+
+.ProductForm{
+	float: left;
+    background:blue
+}
+
+.Appcontainer .col-md-6:nth-of-type(n+3) {
+    position: absolute;
+    right: 0;
+}

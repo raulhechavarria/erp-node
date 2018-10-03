@@ -22,6 +22,15 @@
   color: #61dafb;
 }
 
+.Appcontainer li{
+    top: 100%;
+    display: inline-block;
+    padding-right: 100px;
+   color: #369;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
