@@ -33,7 +33,6 @@ function find(res1){
 	});	  
 };
 
-
 function findproductbyidorder(idorders,res1){
 	conn.client.query("SELECT * FROM ordersproduct WHERE idorders = $1", [idorders], (err, res) => {
 		  if (err) throw err
