@@ -6,13 +6,16 @@ const express1 = require("express");
 const router = express1.Router();
 const ordersproduct1 = require('../models/ordersproduct');
 
-
 router.get('/:idorders', (req, res, next) =>{
 	ordersproduct1.findproductbyidorder(req.params.idorders,res)
 });
 
 router.get('/', function (req, res) {
 	ordersproduct1.find(res);
+});
+
+router.get('/productDashRouter', function (req, res) {
+	ordersproduct1.findTopProduct(res);
 });
 
 router.post('/', (req, res, next) =>{

@@ -6,6 +6,7 @@ const express1 = require("express");
 const router = express1.Router();
 const order1 = require('../models/order');
 
+
 // / code test
 const conn = require('../connect.js');
 
@@ -17,12 +18,15 @@ router.get('/', function (req, res) {
 	order1.find(res);
 });
 
+router.get('/', function (req, res) {
+	order1.findTopCustomer(res);
+});
+
 router.post('/', (req, res, next) =>{
 	const order = ({
-		number: req.body.number, 
+		numberorder: req.body.numberorder, 
 		date: req.body.date, 
 		idcustomer: req.body.idcustomer, 
-		idshippingaddress: req.body.idshippingaddress, 
 		paymenttype: req.body.paymenttype,
 		products: req.body.products
 	});

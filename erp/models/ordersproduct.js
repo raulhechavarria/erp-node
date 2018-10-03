@@ -50,6 +50,16 @@ function findproductbyidorder(idorders,res1){
 		});	  
 };
 
+function findTopProduct(res1){	
+	conn.client.query('SELECT product.name as name, ordersproduct.idproduct as idproduct, count(ordersproduct.idproduct) as total  FROM product INNER JOIN ordersproduct ON product.id = ordersproduct.idproduct group by idproduct, name order by total desc limit 3', (err, res) => {
+	  if (err) throw err
+	// console.log(res)
+	  res1.status(200).json(res.rows)
+	// conn.client.end()
+	});	  
+};
+
+exports.findTopProduct = findTopProduct
 exports.save = save;
 exports.delOrder = delOrder;
 exports.find = find;

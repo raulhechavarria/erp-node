@@ -20,13 +20,17 @@ router.post('/', (req, res, next) =>{
 		name: req.body.name,
 		phone: req.body.phone,
 		email: req.body.email,
-		idshippingaddress: req.body.idshippingaddress
+		streetandnumber: req.body.streetandnumber, 
+		city: req.body.city, 
+		state: req.body.state, 
+		zipcode: req.body.zipcode, 
+		country: req.body.country
 	});
 	customer1.save(customer,res);
-res.status(200).json({
+/*res.status(200).json({
 		message: 'customer saved',
 		customer: customer
-	});
+	});*/
 });
 
 router.put('/', (req, res, next) =>{
@@ -35,8 +39,13 @@ router.put('/', (req, res, next) =>{
 		name: req.body.name,
 		phone: req.body.phone,
 		email: req.body.email,
-		idshippingaddress: req.body.idshippingaddress
+		streetandnumber: req.body.streetandnumber, 
+		city: req.body.city, 
+		state: req.body.state, 
+		zipcode: req.body.zipcode, 
+		country: req.body.country
 	});
+//	console.log(customer);
 	customer1.save(customer,res);
 res.status(200).json({
 		message: 'customer was updated',

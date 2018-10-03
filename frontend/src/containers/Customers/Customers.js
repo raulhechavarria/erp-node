@@ -10,7 +10,11 @@ class Customers extends Component {
       name: '',
       phone: '',
       email: '',
-      address: '',
+      streetandnumber: '', 
+      city: '', 
+      state: '', 
+      zipcode: '', 
+      country: '',
 
       customers: [{
         id: 1,
@@ -26,16 +30,18 @@ class Customers extends Component {
     e.preventDefault()
     if (window.confirm('Are you sure to delete: ' + id + '?')) {
       // delete
-      //   axios.get('http://example.com/movies.json')
-      //   .then(function (response) {
-      window.confirm('done')
-      // navigate to customers list
-      this.props.history.push('/customers')
+      axios.delete('http://localhost:3001/customers/' + id)
+      .then(() => {
+    	  // navigate to customers list
+    	  this.loadCustomers()
+    	  window.confirm('done')
+    	  this.props.history.push('/customers')
+      })
     }
   }
 
   onSubmit () {
-    const { name, phone, email, address } = this.state
+    const { name, phone, email, streetandnumber, city, state, zipcode, country } = this.state
 
     // save
     // axios.get('http://example.com/movies.json')
@@ -43,13 +49,18 @@ class Customers extends Component {
 
     //   })
   }
-
-  componentWillMount () {
+ 
+  componentDidMount () {
     // load customers
-    axios.get('http://localhost:3000/customers')
-      .then((result) => {
-        console.log(result)
-      })
+    this.loadCustomers()
+  }
+  
+  loadCustomers() {
+	// load customers
+	    return axios.get('http://localhost:3001/customers') ///axios llamasat http
+	      .then((result) => {
+	        this.setState({customers: result.data})
+	      })
   }
 
   render () {
@@ -68,7 +79,7 @@ class Customers extends Component {
               <div className='col-md-3'>{customer.name}</div>
               <div className='col-md-3'>{customer.phone}</div>
               <div className='col-md-3'>
-                <Link to={'/customers/edit/' + customer.id}>Edit</Link>
+                <a href={'/customers/edit/' + customer.id}>Edit</a>
                 <a href='' onClick={(e) => this.onDelete(e, customer.id)}>Delete</a>
               </div>
             </div>
@@ -80,3 +91,4 @@ class Customers extends Component {
 }
 
 export default Customers
+//export loadCustomers

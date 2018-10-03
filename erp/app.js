@@ -7,7 +7,7 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       pg = require('pg'),
       conet = require('./connect'),
-      cors = require('cors');
+      cors = require('cors');// para llamar desde  cualquier lugar
 
 
 // cors
@@ -23,6 +23,8 @@ const shippingaddressRouter = require('./routers/shippingaddresss');
 const customerRouter = require('./routers/customers');
 const ordersRouter = require('./routers/orders');
 const ordersproductRouter = require('./routers/ordersproducts');
+const customerdashboardRouter = require('./routers/customerdashboard');
+const productdashboardRouter = require('./routers/productdashboard');
 
 //pg.connect(conet);
 
@@ -32,5 +34,7 @@ app.use('/shippingaddresss', shippingaddressRouter);
 app.use('/customers', customerRouter);
 app.use('/orders', ordersRouter);
 app.use('/ordersproducts', ordersproductRouter);
+app.use('/customerdashboard', customerdashboardRouter);
+app.use('/productdashboard', productdashboardRouter);
 
 module.exports = app;

@@ -47,10 +47,9 @@ function save(product){
 
 function del(id){
 	if (id) {
-		conn.client.query({
-		    name: 'insert product',
-		    text: "DELETE FROM product WHERE id = $1",
-		    values: [id]
+		conn.client.query("DELETE FROM product WHERE id = $1",[id], (err,res) =>{
+			 if (err) throw err
+			
 		});
 	} 
 };
