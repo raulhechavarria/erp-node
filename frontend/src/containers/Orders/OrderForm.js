@@ -126,7 +126,7 @@ class OrderForm extends Component {
             <select name='idcustomer' id='idcustomer' value={idcustomer} onChange={(e) => this.setState({ idcustomer: e.target.value })}>
             
 	            {this.state.customers.map((customer, i) =>
-	            <option value={customer.id}>{customer.name}</option>
+	            <option key={customer.id} value={customer.id}>{customer.name}</option>
 	            )}
 	            
            </select>
@@ -138,9 +138,17 @@ class OrderForm extends Component {
           </FormGroup>  
           
           <FormGroup>
-            <Label for='paymenttype'>Price</Label>
-            <Input type='text' name='paymenttype' id='paymenttype' value={paymenttype} onChange={(e) => this.setState({ paymenttype: e.target.value })} />
-          </FormGroup>
+          <Label for='paymenttype'>Payment Type</Label>
+          <select  name='paymenttype' id='paymenttype' value={paymenttype} onChange={(e) => this.setState({ paymenttype: e.target.value })}>
+          <option value="Cash">Cash</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Check">Check</option>
+          <option value="Other">Other</option>
+        </select>          
+          
+            
+            
+            </FormGroup>
             
           
           

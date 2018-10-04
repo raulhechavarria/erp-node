@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import axios from 'axios'
+import Moment from 'moment';
 
 class Orders extends Component {
   constructor () {
@@ -12,7 +13,6 @@ class Orders extends Component {
       date: '' ,
       idcustomer: '' ,
       paymenttype: '',
-      
 
       orders: [{
         id: 1,
@@ -63,6 +63,7 @@ class Orders extends Component {
 
   render () {
     const { orders } = this.state
+    Moment.locale('en');
     return (
       <div className='orders'>
         <div>
@@ -70,15 +71,20 @@ class Orders extends Component {
           <div className='row'>
             <div className='col-md-3'>numberorder</div>
             <div className='col-md-3'>Date</div>
+            <div className='col-md-3'>Total</div>   
             <div className='col-md-3'>Actions</div>   
-          </div>
+            </div>
           {orders.map((order, i) =>
             <div className='row' key={i}>
               <div className='col-md-3'>{order.numberorder}</div>
+              
               <div className='col-md-3'>
- {order.date}            
+            
+              {Moment(order.date).format('d MMM')}           
               </div>
+              <div className='col-md-3'>{order.total}</div>
               <div className='col-md-3'>
+             
               
                 <a href='' onClick={(e) => this.onDelete(e, order.id)}>Delete</a>
               </div>

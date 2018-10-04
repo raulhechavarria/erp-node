@@ -7,21 +7,16 @@ const ordersproduct = require('../models/ordersproduct');
 
 
 function find(res1){	
-	//const client = new Client()
-	//conn.client.connect()
-	conn.client.query('select * from orders', (err, res) => {
-	  if (err) throw err
-	// console.log(res)
+	conn.client.query('select o.id, o.numberorder, o.date, o.idcustomer,o.paymenttype, sum(p.price) as total from orders as o inner join ordersproduct as op on o.id = op.idorders inner join product as p on op.idproduct = p.id group by o.id, o.numberorder, o.date, o.idcustomer,o.paymenttype', (err, res) => {
+	  if (err) console.log("Error to select")
 	  res1.status(200).json(res.rows)
-	 // conn.client.end();
-	//  conn.client.release();
 	});
   //   
 };
 
 
 function findTopCustomer(res1){	
-	conn.client.query('SELECT customer.name as name, count(orders.idcustomer) as total  FROM orders INNER JOIN customer ON customer.id = orders.idcustomer group by name order by total desc limit 3', (err, res) => {
+	conn.client.query('SELECT customer.name as name, count(orders.idcustomer) as total  FROM orders INNER JOIN customer ON customer.id = orders.idcustomer group by name order by total desc', (err, res) => {
 	  if (err) throw err
 	 console.log(res)
 	  res1.status(200).json(res.rows)
