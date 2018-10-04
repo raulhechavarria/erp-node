@@ -42,11 +42,6 @@ class Customers extends Component {
 
   onSubmit () {
     const { name, phone, email, streetandnumber, city, state, zipcode, country } = this.state
-    // save
-    // axios.get('http://example.com/movies.json')
-    //   .then(function (response) {
-
-    //   })
   }
  
   componentDidMount () {
