@@ -6,13 +6,13 @@ import TopCustomerDashBoard from './TopCustomerDashBoard'
 
 class Home extends Component {
 	  render () {
-		    const {data} = this.state
-		    return ({
+		   
+		    return (
 		    		
-		    		<TopCustomerDashBoard/>}
+		    		<TopCustomerDashBoard/>
 		    	
 		    )
-		  }
-}
+		  }}
+
 
 export default Home
