@@ -5,7 +5,7 @@
     background:blue
 }
 
-.Appcontainer .col-md-6:nth-of-type(3) {
+.Appcontainer .col-md-6:nth-of-type(n+3) {
     position: absolute;
     right: 0;
 }
