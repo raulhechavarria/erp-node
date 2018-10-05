@@ -28,7 +28,7 @@ class OrderForm extends Component {
 	 this.loadCustomers()
 	 this.loadProducts()
 	 this.setState({ numberorder : !this.state.numberorder ? '2018-' +  Math.floor(Math.random() * Math.floor(1000)) : this.state.numberorder}) 
-	 this.setState({ date : !this.state.date ? '12-12-2009' : this.state.date}) 
+	// this.setState({ date : !this.state.date ? '12-12-2009' : this.state.date}) 
 	 }
   
   loadProducts() {
@@ -69,8 +69,12 @@ class OrderForm extends Component {
   onSubmit () {
 	  
 
-    const { numberorder, date, idcustomer, paymenttype,  selectedproducts } = this.state
-  //  console.log(selectedproducts)
+    const { numberorder, date, idcustomer , paymenttype,  selectedproducts } = this.state
+  /*  alert(numberorder)
+    alert(date)
+    alert(idcustomer.value)
+    alert(paymenttype)
+    alert(selectedproducts)*/
     const { match } = this.props
     const id = match.params.id
 
@@ -78,7 +82,7 @@ class OrderForm extends Component {
       id,
       numberorder,
       date,
-      idcustomer,
+      idcustomer: idcustomer.value,
       paymenttype,
       products: selectedproducts
     }
@@ -109,25 +113,18 @@ class OrderForm extends Component {
         <Form>
           <FormGroup>   
             <Label for='numberorder'>Order Number</Label>
-            <Input type='text' name='numberorder' value={numberorder} id='numberorder'  onChange={(e) => this.setState({ numberorder: e.target.value })}/>
+            <Input type='text' name='numberorder' id='numberorder' value={numberorder}   onChange={(e) => this.setState({ numberorder: e.target.value })}/>
           </FormGroup>
           
             <FormGroup>
             <Label for='date'>date</Label>
-            <Input type="date" name='date' id='date' value={date} onChange={(e) => this.setState({ date: e.target.value })}
-                min="2018-01-01" max="2020-12-31"/ >
+            <Input type="date" name='date' id='date' value={date} onChange={(e) => this.setState({ date: e.target.value })} / >
           </FormGroup>
           
-           <FormGroup>
-           <Label for='idcustomer'>Customer</Label>
-	          <Input type='select' name='idcustomer' id='idcustomer' value={idcustomer} onChange={(e) => this.setState({ idcustomer: e.target.value })}>
-	          
-	          {this.state.customers.map((customer, i) =>
-	          <option key={customer.id} value={customer.id}>{customer.name}</option>
-	          )}
-	          
-	          </Input>
-	       </FormGroup>
+          <FormGroup>
+  	        <Label for='idcustomer'>Customer</Label>
+  	        <Select onChange={(value) => this.setState({ idcustomer: value })}  options={this.state.customers.map(c => ({ label: c.name, value: c.id, name: c.name}))} />
+          </FormGroup>
 	       
           <FormGroup>
           <Label for='idproduct'>Product</Label>
