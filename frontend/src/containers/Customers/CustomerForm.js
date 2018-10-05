@@ -3,6 +3,11 @@ import React, { Component } from 'react'
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import axios from 'axios'
 
+/*
+const Hello = () => {
+	return <a className="btn btn-danger">helhloo</a>
+}
+*/
 class CustomerForm extends Component {
   constructor (props) {
     super(props)
@@ -118,12 +123,12 @@ class CustomerForm extends Component {
             <Label for='zipcode'>zipcode</Label>
             <Input type='zipcode' name='zipcode' id='zipcode' value={zipcode} onChange={(e) => this.setState({ zipcode: e.target.value })} />
           </FormGroup>
-            <FormGroup>
+          <FormGroup>
             <Label for='country'>country</Label>
             <Input type='country' name='country' id='country' value={country} onChange={(e) => this.setState({ country: e.target.value })} />
           </FormGroup>
-         
-          <Button color='primary' onClick={this.onSubmit}>Submit</Button>
+          
+            <Button color='primary' onClick={this.onSubmit}>Primary</Button>
           <Button onClick={() => this.props.history.push('/customers')}>Cancel</Button>
         </Form>
       </div>

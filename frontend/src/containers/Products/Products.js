@@ -27,14 +27,25 @@ class Products extends Component {
     e.preventDefault()
     if (window.confirm('Are you sure to delete: ' + id + '?')) {
       // delete
-      axios.delete('http://localhost:3001/products/' + id)
+    	axios
+    	.delete('http://localhost:3001/products/' + id)
+    	.then((res) => {
+    		alert(res.data.message)
+    		this.loadProducts();
+    		//window.confirm('done')
+       	    this.props.history.push('/products')
+        })
+    	
+    	
+    /*  axios.delete('http://localhost:3001/products/' + id)
       .then(() => {
+    	  alert()
     	  // navigate to products list
     	  this.loadProducts()
     	  window.confirm('done')
     	  this.props.history.push('/products')
       })
-    }
+    */}
   }
 
   onSubmit () {

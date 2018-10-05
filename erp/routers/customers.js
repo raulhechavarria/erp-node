@@ -55,11 +55,11 @@ res.status(200).json({
 
 
 router.delete('/:customerId', (req, res, next) =>{
-	customer1.del(req.params.customerId)
-	res.status(200).json({
+	customer1.del(res, req.params.customerId)
+/*	res.status(200).json({
 		message: 'customer deleted',
 			customerId : req.params.customerId
-	});
+	});*/
 });
 
 module.exports = router;

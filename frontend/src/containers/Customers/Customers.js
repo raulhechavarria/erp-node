@@ -31,10 +31,12 @@ class Customers extends Component {
     if (window.confirm('Are you sure to delete: ' + id + '?')) {
       // delete
       axios.delete('http://localhost:3001/customers/' + id)
-      .then(() => {
+      .then((res) => {
+      		alert(res.data.message)
+    	  
     	  // navigate to customers list
     	  this.loadCustomers()
-    	  window.confirm('done')
+    	//  window.confirm('done')
     	  this.props.history.push('/customers')
       })
     }

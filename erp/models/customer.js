@@ -43,11 +43,17 @@ function save(customer,res1){
 };
 
 
-function del(id){
+function del(res1,id){
 	if (id) {
 		conn.client.query('DELETE FROM customer WHERE id = $1', [id], (err, res) => {
-			  if (err) console.log('error deleted')
-		    //  client.end()
+			 if (err) {
+				 res1.status(200).json({
+						message: err.stack,
+							id:"deleted"
+						//	productId : req.params.productId
+					});
+				 console.log('error deleted');
+			 }
 		});
 	} 
 };

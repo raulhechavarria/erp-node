@@ -48,12 +48,12 @@ router.put('/', (req, res, next) =>{
 });
 
 router.delete('/:productId', (req, res, next) =>{
-	product1.del(req.params.productId)
-	res.status(200).json({
+	product1.del(res,req.params.productId)
+/*	res.status(200).json({
 		message: 'product deleted',
 			id:"sdfsdf",
 			productId : req.params.productId
-	});
+	});*/
 });
 
 module.exports = router;

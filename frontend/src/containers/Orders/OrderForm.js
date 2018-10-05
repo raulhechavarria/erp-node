@@ -27,8 +27,9 @@ class OrderForm extends Component {
 	 this.loadOrder()
 	 this.loadCustomers()
 	 this.loadProducts()
-	 
-  }
+	 this.setState({ numberorder : !this.state.numberorder ? '2018-' +  Math.floor(Math.random() * Math.floor(1000)) : this.state.numberorder}) 
+	 this.setState({ date : !this.state.date ? '12-12-2009' : this.state.date}) 
+	 }
   
   loadProducts() {
 		    return axios.get('http://localhost:3001/products') ///axios llamasat http
@@ -99,7 +100,7 @@ class OrderForm extends Component {
   }
 
   render () {
-    const { numberorder, date, idcustomer, paymenttype } = this.state
+    let { numberorder, date, idcustomer, paymenttype } = this.state
     const { match } = this.props
 
     return (
@@ -113,41 +114,34 @@ class OrderForm extends Component {
           
             <FormGroup>
             <Label for='date'>date</Label>
-            
-            <input type="date" name='date' id='date'
-            	value={date} onChange={(e) => this.setState({ date: e.target.value })}
+            <Input type="date" name='date' id='date' value={date} onChange={(e) => this.setState({ date: e.target.value })}
                 min="2018-01-01" max="2020-12-31"/ >
-            
-          </FormGroup>
-            
-            <FormGroup>
-            <Label for='idcustomer'>Customer</Label>
-            
-            <select name='idcustomer' id='idcustomer' value={idcustomer} onChange={(e) => this.setState({ idcustomer: e.target.value })}>
-            
-	            {this.state.customers.map((customer, i) =>
-	            <option key={customer.id} value={customer.id}>{customer.name}</option>
-	            )}
-	            
-           </select>
           </FormGroup>
           
+           <FormGroup>
+           <Label for='idcustomer'>Customer</Label>
+	          <Input type='select' name='idcustomer' id='idcustomer' value={idcustomer} onChange={(e) => this.setState({ idcustomer: e.target.value })}>
+	          
+	          {this.state.customers.map((customer, i) =>
+	          <option key={customer.id} value={customer.id}>{customer.name}</option>
+	          )}
+	          
+	          </Input>
+	       </FormGroup>
+	       
           <FormGroup>
           <Label for='idproduct'>Product</Label>
-          <Select isMulti  onChange={(e) => this.setState({ selectedproducts: e })}  options={this.state.products} />
+          <Select isMulti  onChange={(value) => this.setState({ selectedproducts: value })}  options={this.state.products} />
           </FormGroup>  
           
           <FormGroup>
-          <Label for='paymenttype'>Payment Type</Label>
-          <select  name='paymenttype' id='paymenttype' value={paymenttype} onChange={(e) => this.setState({ paymenttype: e.target.value })}>
-          <option value="Cash">Cash</option>
-          <option value="Credit Card">Credit Card</option>
-          <option value="Check">Check</option>
-          <option value="Other">Other</option>
-        </select>          
-          
-            
-            
+	          <Label for='paymenttype'>Payment Type</Label>
+	          <select  name='paymenttype' id='paymenttype' value={paymenttype} onChange={(e) => this.setState({ paymenttype: e.target.value })}>
+		          <option value="Cash">Cash</option>
+		          <option value="Credit Card">Credit Card</option>
+		          <option value="Check">Check</option>
+		          <option value="Other">Other</option>
+	          </select>   
             </FormGroup>
             
           

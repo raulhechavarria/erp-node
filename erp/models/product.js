@@ -47,11 +47,18 @@ function save(product){
 	}
 };
 
-function del(id){
+function del(res1,id){
 	if (id) {
 		conn.client.query("DELETE FROM product WHERE id = $1",[id], (err,res) =>{
-			 if (err) console.log('error deleted');
-			// console.log(res1);
+			 if (err) {
+				 res1.status(200).json({
+						message: err.stack,
+							id:"deleted"
+						//	productId : req.params.productId
+					});
+				 console.log('error deleted');
+			 }
+			 
 		});
 	} 
 };
