@@ -6,10 +6,6 @@ const express1 = require("express");
 const router = express1.Router();
 const order1 = require('../models/order');
 
-
-// / code test
-const conn = require('../connect.js');
-
 router.get('/:orderId', (req, res, next) =>{
 	order1.findbyid(req.params.orderId,res)
 });

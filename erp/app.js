@@ -6,7 +6,6 @@ const express = require('express'),
       app = express(),
       bodyParser = require('body-parser'),
       pg = require('pg'),
-      conet = require('./connect'),
       cors = require('cors');// para llamar desde  cualquier lugar
 
 
@@ -25,8 +24,6 @@ const ordersRouter = require('./routers/orders');
 const ordersproductRouter = require('./routers/ordersproducts');
 const customerdashboardRouter = require('./routers/customerdashboard');
 const productdashboardRouter = require('./routers/productdashboard');
-
-//pg.connect(conet);
 
 // routers
 app.use('/products', productRouter);

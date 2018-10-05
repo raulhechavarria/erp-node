@@ -6,10 +6,6 @@ const express1 = require("express");
 const router = express1.Router();
 const product1 = require('../models/product');
 
-
-/// code  test
-const conn = require('../connect.js');
-
 router.get('/', function (req, res) {
 	product1.find(res);
 });

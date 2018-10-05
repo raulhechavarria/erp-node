@@ -27,12 +27,12 @@ class OrderForm extends Component {
 	 this.loadOrder()
 	 this.loadCustomers()
 	 this.loadProducts()
-	 this.setState({ numberorder : !this.state.numberorder ? '2018-' +  Math.floor(Math.random() * Math.floor(1000)) : this.state.numberorder}) 
-	// this.setState({ date : !this.state.date ? '12-12-2009' : this.state.date}) 
+	 this.setState({ numberorder : !this.state.numberorder ? '2018-' +  Math.floor(Math.random() * Math.floor(1000)) : this.state.numberorder} 
+	              /*,{ date : !this.state.date ? '' : this.state.date} */) 
 	 }
   
   loadProducts() {
-		    return axios.get('http://localhost:3001/products') ///axios llamasat http
+		    return axios.get('/products') ///axios llamasat http
 		    .then((result) => {
 	        this.setState({products: result.data})
 	      })
@@ -41,7 +41,7 @@ class OrderForm extends Component {
   
   loadCustomers() {
 		// load customers
-		    return axios.get('http://localhost:3001/customers') ///axios llamasat http
+		    return axios.get('/customers') ///axios llamasat http
 		      .then((result) => {
 			        this.setState({customers: result.data})		    	
 		      })
@@ -50,19 +50,32 @@ class OrderForm extends Component {
   
   loadOrder() {
     const { match } = this.props
-    const id = match.params.id
+    const id = match.params.id  // take parameter url
     if (id) {
       // load the order data
-    	axios.get('http://localhost:3001/orders/' + id)
+    	axios.get('/orders/' + id)
         .then((result) => {
-    	  let order = result.data
+    	  let order = result.data 
       	  this.setState({
       		numberorder: order.numberorder || '',
       		date: order.date || '',
              idcustomer: order.idcustomer || '',
              paymenttype: order.paymenttype || ''
       	  })
-        }) 
+      	  
+      	  
+        });
+    	/*
+    	 axios.get('/ordersproducts/' + id)
+    	 .then((result) => {
+       	  let products1 = result.data // I cant solved  the issue  of many product selected  
+       	  alert(result.data)
+         	  this.setState({
+         		 selectedproducts: products1 || '' // aqui
+         	  })
+           });
+    	 */
+    	
     }
   }
 
@@ -73,8 +86,11 @@ class OrderForm extends Component {
   /*  alert(numberorder)
     alert(date)
     alert(idcustomer.value)
+    
+    alert(selectedproducts)
+    
     alert(paymenttype)
-    alert(selectedproducts)*/
+    */
     const { match } = this.props
     const id = match.params.id
 
@@ -89,13 +105,13 @@ class OrderForm extends Component {
 
     if (!id) {
       // create new
-      axios.post('http://localhost:3001/orders', order)
+      axios.post('/orders', order)
         .then(function (response) {
         	
         })
     } else {
       // update
-      axios.put('http://localhost:3001/orders', order)
+      axios.put('/orders', order)
         .then(function (response) {
 
         })
@@ -118,7 +134,7 @@ class OrderForm extends Component {
           
             <FormGroup>
             <Label for='date'>date</Label>
-            <Input type="date" name='date' id='date' value={date} onChange={(e) => this.setState({ date: e.target.value })} / >
+            <Input type="date" name='date'        id='date'        value={date}           onChange={(e) => this.setState({ date: e.target.value })} / >
           </FormGroup>
           
           <FormGroup>
@@ -133,13 +149,17 @@ class OrderForm extends Component {
           
           <FormGroup>
 	          <Label for='paymenttype'>Payment Type</Label>
-	          <select  name='paymenttype' id='paymenttype' value={paymenttype} onChange={(e) => this.setState({ paymenttype: e.target.value })}>
-		          <option value="Cash">Cash</option>
-		          <option value="Credit Card">Credit Card</option>
-		          <option value="Check">Check</option>
-		          <option value="Other">Other</option>
-	          </select>   
+	          <Input type="select" name='paymenttype' id='paymenttype' value={paymenttype} onChange={(e) => this.setState({ paymenttype: e.target.value })}>
+	          <option></option>
+	          <option>Cash</option>
+	          <option>Credit Card</option>
+		          <option >Check</option>
+		          <option>Other</option>
+	          </Input>   
             </FormGroup>
+            
+            
+           
             
           
           

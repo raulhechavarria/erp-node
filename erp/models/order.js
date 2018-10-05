@@ -2,7 +2,8 @@
  * http://usejsdoc.org/
  */
 
-const conn = require('../connect.js');
+const conn = require('../common/connect.js');
+const exc = require('../common/HandlerException.js')
 const ordersproduct = require('../models/ordersproduct');
 
 
@@ -37,15 +38,12 @@ function findbyid(id,res1){
 };
 
 function save(order, res1){
-
 		  var  sql = 'INSERT INTO orders(numberorder,date, idcustomer, paymenttype) values($1,$2,$3,$4) RETURNING id';
 		  var  values = [ order.numberorder, order.date, order.idcustomer,  order.paymenttype];
 		  var idorders1;
 		  conn.client.query(sql, values, (err, res) => {
-			  if (err) {
-				    console.log(err.stack)
-				  } else {
-					  res1.status(200).json(res.rows[0].id);
+			  exc.predicError(err, res,res1)
+			  if (!err) {
 					  idorders1 = res.rows[0].id;
 					  order.products.forEach( function(value, index, array) {
 						  const ordersproduct1 = ({
@@ -53,21 +51,17 @@ function save(order, res1){
 							  idorders: idorders1,
 							});
 						  ordersproduct.save(ordersproduct1);  
-						  // console.log("En el índice " + indice + " hay este
-							// valor: " + valor);
 						});
 				  } 
+			  
+			  
 		});
 };
 
 function del(id,res1){
 	ordersproduct.delOrder(id);	
-		conn.client.query("DELETE FROM orders WHERE id = $1", [id], (err,res) =>{
-			 if (err) throw err
-			 res1.status(200).json({
-					 message: 'order deleted',
-					 orderId : res.rows[0]
-			 })
+		conn.client.query("DELETE FROM orders WHERE id = $1 returning id", [id], (err,res) =>{
+			exc.predicError(err, res,res1)
 		});
 };
 

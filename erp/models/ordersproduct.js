@@ -2,7 +2,8 @@
  * http://usejsdoc.org/
  */
 
-const conn = require('../connect.js');
+const conn = require('../common/connect.js');
+const exc = require('../common/HandlerException.js')
 const product = require('../models/product');
 
 function find(res1){	
@@ -15,7 +16,7 @@ function find(res1){
 };
 
 function findproductbyidorder(idorders,res1){
-	conn.client.query("SELECT * FROM ordersproduct WHERE idorders = $1", [idorders], (err, res) => {
+	conn.client.query("SELECT *, p.id as value, p.name as label  FROM ordersproduct op inner join product p on op.idproduct = p.id  WHERE idorders = $1", [idorders], (err, res) => {
 		  if (err) throw err
 		  var list = [];
 			for (var i = 0; i < res.rows.length; i++) {

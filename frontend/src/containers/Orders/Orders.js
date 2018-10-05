@@ -28,7 +28,7 @@ class Orders extends Component {
     e.preventDefault()
     if (window.confirm('Are you sure to delete: ' + id + '?')) {
       // delete
-      axios.delete('http://localhost:3001/orders/' + id)
+      axios.delete('/orders/' + id)
       .then(() => {
     	  // navigate to orders list
     	  this.loadOrders()
@@ -55,7 +55,7 @@ class Orders extends Component {
   
   loadOrders() {
 	// load orders
-	    return axios.get('http://localhost:3001/orders') ///axios llamasat http
+	    return axios.get('/orders') ///axios llamasat http
 	      .then((result) => {
 	        this.setState({orders: result.data})
 	      })
@@ -85,7 +85,7 @@ class Orders extends Component {
               <div className='col-md-3'>{order.total}</div>
               <div className='col-md-3'>
              
-              
+              <a href={'/orders/edit/' + order.id}>Edit</a>
                 <a href='' onClick={(e) => this.onDelete(e, order.id)}>Delete</a>
               </div>
             </div>

@@ -30,7 +30,7 @@ class Customers extends Component {
     e.preventDefault()
     if (window.confirm('Are you sure to delete: ' + id + '?')) {
       // delete
-      axios.delete('http://localhost:3001/customers/' + id)
+      axios.delete('/customers/' + id)
       .then((res) => {
       		alert(res.data.message)
     	  
@@ -53,7 +53,7 @@ class Customers extends Component {
   
   loadCustomers() {
 	// load customers
-	    return axios.get('http://localhost:3001/customers') ///axios llamasat http
+	    return axios.get('/customers') ///axios llamasat http
 	      .then((result) => {
 	        this.setState({customers: result.data})
 	      })

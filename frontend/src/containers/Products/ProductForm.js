@@ -25,7 +25,7 @@ class ProductForm extends Component {
     const id = match.params.id
     if (id) {
       // load the product data
-    	axios.get('http://localhost:3001/products/' + id)
+    	axios.get('/products/' + id)
         .then((result) => {
     	  let product = result.data
       	  this.setState({
@@ -53,13 +53,13 @@ class ProductForm extends Component {
 
     if (!id) {
       // create new
-      axios.post('http://localhost:3001/products', product)
+      axios.post('/products', product)
         .then(function (response) {
         	
         })
     } else {
       // update
-      axios.put('http://localhost:3001/products', product)
+      axios.put('/products', product)
         .then(function (response) {
 
         })

@@ -21,7 +21,7 @@ class TopCustomerDashBoard extends Component {
 		
 		];
 		 
-		axios.get('http://localhost:3001/customerdashboard') ///axios llamasat http
+		axios.get('/customerdashboard') ///axios llamasat http
 	      .then((result) => {
 	        this.setState({data: result.data})
 	      })	      

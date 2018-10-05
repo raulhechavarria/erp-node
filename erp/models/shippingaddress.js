@@ -2,7 +2,8 @@
  * http://usejsdoc.org/
  */
 
-const conn = require('../connect.js');
+const conn = require('../common/connect.js');
+const exc = require('../common/HandlerException.js')
 
 function find(res1){	
 	conn.client.query('select * from shippingaddress', (err, res) => {

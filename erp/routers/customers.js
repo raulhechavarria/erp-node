@@ -47,10 +47,6 @@ router.put('/', (req, res, next) =>{
 	});
 //	console.log(customer);
 	customer1.save(customer,res);
-res.status(200).json({
-		message: 'customer was updated',
-		customer: customer
-	});
 });
 
 

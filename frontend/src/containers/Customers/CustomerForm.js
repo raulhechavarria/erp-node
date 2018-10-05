@@ -35,7 +35,7 @@ class CustomerForm extends Component {
     const id = match.params.id
     if (id) {
       // load the customer data
-    	axios.get('http://localhost:3001/customers/' + id)
+    	axios.get('/customers/' + id)
         .then((result) => {
     	  let customer = result.data
       	  this.setState({
@@ -71,15 +71,17 @@ class CustomerForm extends Component {
 
     if (!id) {
       // create new
-      axios.post('http://localhost:3001/customers', customer)
+      axios.post('/customers', customer)
         .then(function (response) {
-        	
+        	alert(response.data.message)
+        	//  this.loadCustomers()
         })
     } else {
       // update
-      axios.put('http://localhost:3001/customers', customer)
+      axios.put('/customers', customer)
         .then(function (response) {
-
+        	alert(response.data.message)
+      	//  this.loadCustomers()
         })
     }
     this.props.history.push('/customers')

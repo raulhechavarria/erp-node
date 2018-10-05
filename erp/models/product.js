@@ -2,7 +2,8 @@
  * http://usejsdoc.org/
  */
 
-const conn = require('../connect.js');
+const conn = require('../common/connect.js');
+const exc = require('../common/HandlerException.js')
 
 function find(res1){	
 	//conn.client.connect()
@@ -49,16 +50,8 @@ function save(product){
 
 function del(res1,id){
 	if (id) {
-		conn.client.query("DELETE FROM product WHERE id = $1",[id], (err,res) =>{
-			 if (err) {
-				 res1.status(200).json({
-						message: err.stack,
-							id:"deleted"
-						//	productId : req.params.productId
-					});
-				 console.log('error deleted');
-			 }
-			 
+		conn.client.query("DELETE FROM product WHERE id = $1 returning id",[id], (err,res) =>{
+			 exc.predicError(err, res,res1) 
 		});
 	} 
 };

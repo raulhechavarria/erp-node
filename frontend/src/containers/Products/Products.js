@@ -28,7 +28,7 @@ class Products extends Component {
     if (window.confirm('Are you sure to delete: ' + id + '?')) {
       // delete
     	axios
-    	.delete('http://localhost:3001/products/' + id)
+    	.delete('http://66.229.203.189:3001/products/' + id)
     	.then((res) => {
     		alert(res.data.message)
     		this.loadProducts();
@@ -37,7 +37,7 @@ class Products extends Component {
         })
     	
     	
-    /*  axios.delete('http://localhost:3001/products/' + id)
+    /*  axios.delete('http://66.229.203.189:3001/products/' + id)
       .then(() => {
     	  alert()
     	  // navigate to products list
@@ -65,7 +65,7 @@ class Products extends Component {
   
   loadProducts() {
 	// load products
-	    return axios.get('http://localhost:3001/products') ///axios llamasat http
+	    return axios.get('/products') ///axios llamasat http
 	      .then((result) => {
 	        this.setState({products: result.data})
 	      })
