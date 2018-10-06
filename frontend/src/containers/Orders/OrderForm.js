@@ -14,7 +14,6 @@ class OrderForm extends Component {
       idcustomer: '', 
       paymenttype: '',
       customers : [],
-      
       products : [],
       selectedproducts:[]
       
@@ -64,36 +63,14 @@ class OrderForm extends Component {
       	  })
       	  
       	  
-        });
-    	/*
-    	 axios.get('/ordersproducts/' + id)
-    	 .then((result) => {
-       	  let products1 = result.data // I cant solved  the issue  of many product selected  
-       	  alert(result.data)
-         	  this.setState({
-         		 selectedproducts: products1 || '' // aqui
-         	  })
-           });
-    	 */
-    	
+        });    	
     }
   }
 
   onSubmit () {
-	  
-
     const { numberorder, date, idcustomer , paymenttype,  selectedproducts } = this.state
-  /*  alert(numberorder)
-    alert(date)
-    alert(idcustomer.value)
-    
-    alert(selectedproducts)
-    
-    alert(paymenttype)
-    */
     const { match } = this.props
     const id = match.params.id
-
     const order = {
       id,
       numberorder,
@@ -107,15 +84,17 @@ class OrderForm extends Component {
       // create new
       axios.post('/orders', order)
         .then(function (response) {
-        	
+        //	this.props.history.push('/orders')
         })
     } else {
       // update
       axios.put('/orders', order)
         .then(function (response) {
-
+        //	this.props.history.push('/orders')
         })
     }
+  //  this.context.history.push('/orders')
+    window.location.reload();
     this.props.history.push('/orders')
   }
 
@@ -134,7 +113,7 @@ class OrderForm extends Component {
           
             <FormGroup>
             <Label for='date'>date</Label>
-            <Input type="date" name='date'        id='date'        value={date}           onChange={(e) => this.setState({ date: e.target.value })} / >
+            <Input type="date" name='date'      id='date'        value={date}           onChange={(e) => this.setState({ date: e.target.value })} / >
           </FormGroup>
           
           <FormGroup>

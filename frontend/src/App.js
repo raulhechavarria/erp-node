@@ -10,6 +10,7 @@ import Orders from './containers/Orders/Orders'
 import CustomerForm from './containers/Customers/CustomerForm'
 import ProductForm from './containers/Products/ProductForm'
 import OrderForm from './containers/Orders/OrderForm'
+import Example from './containers/Orders/Details'
 
 class App extends Component {
   render () {
@@ -43,14 +44,19 @@ class App extends Component {
               <Route path='/customers/new' component={CustomerForm} />
               <Route path='/customers/edit/:id' component={CustomerForm} />
             </div>
-              <div className='col-md-6'>
+            <div className='col-md-6'>
               <Route path='/products/new' component={ProductForm} />
               <Route path='/products/edit/:id' component={ProductForm} />
             </div>  
-              <div className='col-md-6'>
+            <div className='col-md-6'>
               <Route path='/orders/new' component={OrderForm} />
               <Route path='/orders/edit/:id' component={OrderForm} />
             </div>  
+              
+            <div className='col-md-6'>
+	            <Route path='/orders/details/:id' component={Example} />
+            </div>
+            
           </div>
         </div>
       </Router>

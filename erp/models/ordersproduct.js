@@ -32,7 +32,7 @@ function findproductbyidorder(idorders,res1){
 };
 
 function findTopProduct(res1){	
-	conn.client.query('SELECT product.name as name, ordersproduct.idproduct as idproduct, count(ordersproduct.idproduct) as total  FROM product INNER JOIN ordersproduct ON product.id = ordersproduct.idproduct group by idproduct, name order by total desc limit 3', (err, res) => {
+	conn.client.query('SELECT p.name, op.idproduct as idproduct, count(op.idproduct) as total, (count(op.idproduct) * p.price) as amount FROM product as p INNER JOIN ordersproduct as op ON p.id = op.idproduct group by idproduct, name, p.price order by total desc', (err, res) => {
 	  if (err) throw err
 	// console.log(res)
 	  res1.status(200).json(res.rows)

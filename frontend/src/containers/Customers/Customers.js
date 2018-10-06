@@ -33,8 +33,7 @@ class Customers extends Component {
       axios.delete('/customers/' + id)
       .then((res) => {
       		alert(res.data.message)
-    	  
-    	  // navigate to customers list
+   	  // navigate to customers list
     	  this.loadCustomers()
     	//  window.confirm('done')
     	  this.props.history.push('/customers')

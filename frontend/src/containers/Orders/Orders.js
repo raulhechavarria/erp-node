@@ -4,6 +4,8 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import axios from 'axios'
 import Moment from 'moment';
 
+
+
 class Orders extends Component {
   constructor () {
     super()
@@ -86,7 +88,11 @@ class Orders extends Component {
               <div className='col-md-3'>
              
               <a href={'/orders/edit/' + order.id}>Edit</a>
+           
                 <a href='' onClick={(e) => this.onDelete(e, order.id)}>Delete</a>
+                
+                <a href={'/orders/details/' + order.id} >Report</a>
+                
               </div>
             </div>
           )}

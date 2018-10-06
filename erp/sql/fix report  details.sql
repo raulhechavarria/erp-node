@@ -1,0 +1,1 @@
+SELECT o.id, o.numberorder, o.date, o.idcustomer, o.paymenttype, c.name, c.phone, c.email FROM orders o inner join customer c on o.idcustomer = c.id WHERE o.id = 67 

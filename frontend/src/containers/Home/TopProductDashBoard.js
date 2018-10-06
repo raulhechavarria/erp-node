@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
 import axios from 'axios'
 
-class TopCustomerDashBoard extends Component {
+class TopProductDashBoard extends Component {
 	constructor(){
 		super();
 		this.state = {
@@ -39,11 +39,12 @@ class TopCustomerDashBoard extends Component {
 		       <YAxis/>
 		       <Tooltip/>
 		       <Legend />
-		      
+		       <Bar dataKey="amount" fill="#00ffff" />
+				      
 		       <Bar dataKey="total" fill="#82ca9d" />
 		      </BarChart>
     	</div>
     )
   }
 }
-export default TopCustomerDashBoard
+export default TopProductDashBoard

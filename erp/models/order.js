@@ -28,7 +28,7 @@ function findTopCustomer(res1){
 };
 
 function findbyid(id,res1){
-	conn.client.query("SELECT * FROM orders WHERE id = $1", [id], (err, res) => {
+	conn.client.query("SELECT o.id, o.numberorder, o.date, o.idcustomer, o.paymenttype, c.name, c.phone, c.email FROM orders o inner join customer c on o.idcustomer = c.id WHERE o.id = $1", [id], (err, res) => {
 		  if (err) throw err
 		// console.log(res)
 		  res1.status(200).json(res.rows[0])

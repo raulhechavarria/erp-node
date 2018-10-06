@@ -39,7 +39,7 @@ class TopCustomerDashBoard extends Component {
 		       <Tooltip/>
 		       <Legend />
 		      
-		       <Bar dataKey="total" fill="#82ca9d" />
+		       <Bar dataKey="total" fill="#00ff00" />
 		      </BarChart>
     	</div>
     )

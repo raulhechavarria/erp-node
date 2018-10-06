@@ -20,8 +20,6 @@ function findbyid(id,res1){
 	});	  
 };
 
-
-
 function save(customer,res1){
 	if (customer.id) {
 		const values = [customer.id, customer.name, customer.phone, customer.email, customer.streetandnumber, customer.city, customer.state, customer.zipcode, customer.country]
