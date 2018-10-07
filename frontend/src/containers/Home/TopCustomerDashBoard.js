@@ -38,7 +38,7 @@ class TopCustomerDashBoard extends Component {
 		       <YAxis/>
 		       <Tooltip/>
 		       <Legend />
-		      
+		       <Bar dataKey="amount" fill="#ffff00" />
 		       <Bar dataKey="total" fill="#00ff00" />
 		      </BarChart>
     	</div>

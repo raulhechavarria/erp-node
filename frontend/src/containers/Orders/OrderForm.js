@@ -8,6 +8,13 @@ import ProductSelect from './ProductSelect'
 import DataTable from 'react-data-table-component'
 
 
+//import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+//with es5
+var ReactBsTable = require('react-bootstrap-table');
+var BootstrapTable = ReactBsTable.BootstrapTable;
+var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
+
+
 //import {loadCustomers} from '/Customer/Customers'
 class OrderForm extends Component {
   constructor () {
@@ -118,11 +125,17 @@ class OrderForm extends Component {
 	    	      name:idproduct.name,
 	    	      count,
 	    	    }
-	    this.setState({products1: this.state.products1.concat(prod)})
-	 //   console.log(this.state.products)
-	  //  tasks: this.state.tasks.concat(this.state.inputText)
-	   
-	  }
+	    let flag = false
+	    this.state.products1.forEach(
+	    		 function(value, index, array) {
+					    flag = (value.id == prod.id)						
+					});
+	    if (flag) {
+	    	alert('product was added before')
+		} else {
+			this.setState({products1: this.state.products1.concat(prod),acount:666})
+		}
+	 }
 
   render () {
 
@@ -160,7 +173,11 @@ class OrderForm extends Component {
 			          <Col><Input type='number' name='count' id='count' value={count}   onChange={(e) => this.setState({ count: e.target.value })}/></Col>
 			          <Col><Button color='primary' onClick={this.onSubmitProduct}> Submit product to order</Button></Col>
 		          </Row>
-		          
+		          <BootstrapTable data={products1} striped hover>
+			          <TableHeaderColumn isKey dataField='id'>Product ID</TableHeaderColumn>
+			          <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
+			          <TableHeaderColumn dataField='count'>count</TableHeaderColumn>
+			      </BootstrapTable>
 	              
 	             
 	          </FormGroup>

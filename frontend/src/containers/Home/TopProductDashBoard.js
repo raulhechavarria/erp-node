@@ -41,7 +41,7 @@ class TopProductDashBoard extends Component {
 		       <Legend />
 		       <Bar dataKey="amount" fill="#00ffff" />
 				      
-		       <Bar dataKey="total" fill="#82ca9d" />
+		       <Bar dataKey="total" fill="#0000ff" />
 		      </BarChart>
     	</div>
     )

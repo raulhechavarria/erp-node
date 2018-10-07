@@ -112,8 +112,9 @@ class Example extends React.Component {
 	        <TableRow>
 		          <TableCell>Name</TableCell>
 		          <TableCell>Description</TableCell>
-		          <TableCell numeric>Weight(g)</TableCell>
+		       
 		          <TableCell numeric>Price</TableCell>
+		          <TableCell numeric>Count</TableCell>
 		          <TableCell numeric>Total</TableCell>
 	        </TableRow>
       </TableHead>
@@ -123,8 +124,9 @@ class Example extends React.Component {
             <TableRow key={row.id}>
 			       <TableCell component="th" scope="row">{row.name}</TableCell>
 			       <TableCell >{row.description}</TableCell>
-			       <TableCell >{row.weight}</TableCell>
+			       
 			       <TableCell >{row.price}</TableCell>
+			       <TableCell >{row.count}</TableCell>
 			       <TableCell >{row.price * row.count}</TableCell>
 		    </TableRow>
 		          );
