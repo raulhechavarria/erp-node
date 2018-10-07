@@ -1,0 +1,32 @@
+<BootstrapTable data={ products1 } options={ { noDataText: 'Product added' } }>
+			          <TableHeaderColumn dataField='id' isKey={ true }>Product ID</TableHeaderColumn>
+			          <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+			          <TableHeaderColumn dataField='count'>Count</TableHeaderColumn>
+	              </BootstrapTable>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	                      
+	             
+	          </FormGroup>
+	          
+	          <DataTable
+              title="Product"
+              columns={id, idproduct, name, count}
+              data={products1}
+              selectableRows
+              // selectableRowsComponent={Checkbox}  // Pass the function only
+           //   selectableRowsComponentProps={{ uncheckedIcon: handleIndeterminate  }}
+            />
+       

@@ -84,6 +84,7 @@ class CustomerForm extends Component {
       	//  this.loadCustomers()
         })
     }
+    window.location.reload();
     this.props.history.push('/customers')
   }
   
@@ -111,7 +112,7 @@ class CustomerForm extends Component {
           </FormGroup>
             <FormGroup>
             <Label for='streetandnumber'>streetandnumber</Label>
-            <Input type='streetandnumber' name='streetandnumber' id='streetandnumber' value={streetandnumber} onChange={(e) => this.setState({ streetandnumber: e.target.value })} />
+            <Input type='text' name='streetandnumber' id='streetandnumber' value={streetandnumber} onChange={(e) => this.setState({ streetandnumber: e.target.value })} />
           </FormGroup>
             <FormGroup>
             <Label for='city'>city</Label>
@@ -130,7 +131,7 @@ class CustomerForm extends Component {
             <Input type='country' name='country' id='country' value={country} onChange={(e) => this.setState({ country: e.target.value })} />
           </FormGroup>
           
-            <Button color='primary' onClick={this.onSubmit}>Primary</Button>
+            <Button color='primary' onClick={this.onSubmit}>Submit</Button>
           <Button onClick={() => this.props.history.push('/customers')}>Cancel</Button>
         </Form>
       </div>

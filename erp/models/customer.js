@@ -15,9 +15,14 @@ function find(res1){
 
 function findbyid(id,res1){
 	conn.client.query("SELECT * FROM customer WHERE id = $1", [id], (err, res) => {
-		  if (err) console.log('error findy by id')
-		  res1.status(200).json(res.rows[0])		  
-	});	  
+		  if (err) {
+			res1.status(200).json({
+						message: err.stack,
+					});
+			console.log(err.stack);
+		  } else {
+			res1.status(200).json(res.rows[0]);		  
+	}});	  
 };
 
 function save(customer,res1){

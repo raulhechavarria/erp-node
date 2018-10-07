@@ -43,8 +43,8 @@ function findTopProduct(res1){
 function save(ordersproduct){
 		conn.client.query({
 		    name: 'insert ordersproduct',
-		    text: "INSERT INTO ordersproduct(idproduct,idorders) values($1,$2)",
-		    values: [ ordersproduct.idproduct, ordersproduct.idorders]
+		    text: "INSERT INTO ordersproduct(idproduct,idorders,count) values($1,$2,$3)",
+		    values: [ ordersproduct.idproduct, ordersproduct.idorders, ordersproduct.count]
 		});
 };
 

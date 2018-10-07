@@ -21,11 +21,7 @@ router.post('/', (req, res, next) =>{
 		weight: req.body.weight,
 		price: req.body.price
 	});
-	product1.save(product);
-	res.status(201).json({
-		message: 'product was  saved',
-		product: product
-	});
+	product1.save(product,res);
 });
 
 router.put('/', (req, res, next) =>{
@@ -36,20 +32,11 @@ router.put('/', (req, res, next) =>{
 		weight: req.body.weight,
 		price: req.body.price
 	});
-	product1.save(product);
-	res.status(201).json({
-		message: 'product was update',
-		product: product
-	});
+	product1.save(product,res);
 });
 
 router.delete('/:productId', (req, res, next) =>{
-	product1.del(res,req.params.productId)
-/*	res.status(200).json({
-		message: 'product deleted',
-			id:"sdfsdf",
-			productId : req.params.productId
-	});*/
+	product1.del(req.params.productId,res)
 });
 
 module.exports = router;

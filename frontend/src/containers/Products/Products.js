@@ -28,34 +28,19 @@ class Products extends Component {
     if (window.confirm('Are you sure to delete: ' + id + '?')) {
       // delete
     	axios
-    	.delete('http://66.229.203.189:3001/products/' + id)
+    	.delete('/products/' + id)
     	.then((res) => {
     		alert(res.data.message)
     		this.loadProducts();
     		//window.confirm('done')
        	    this.props.history.push('/products')
         })
-    	
-    	
-    /*  axios.delete('http://66.229.203.189:3001/products/' + id)
-      .then(() => {
-    	  alert()
-    	  // navigate to products list
-    	  this.loadProducts()
-    	  window.confirm('done')
-    	  this.props.history.push('/products')
-      })
-    */}
+ }
   }
 
   onSubmit () {
     const { name, description, weight, price } = this.state
 
-    // save
-    // axios.get('http://example.com/movies.json')
-    //   .then(function (response) {
-
-    //   })
   }
 
   componentDidMount () {

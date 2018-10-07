@@ -1,5 +1,5 @@
 /**
- * http://usejsdoc.org/
+ * http://usejsdoc.org/ shippingaddress
  */
 
 const conn = require('../common/connect.js');
@@ -7,41 +7,34 @@ const exc = require('../common/HandlerException.js')
 
 function find(res1){	
 	conn.client.query('select * from shippingaddress', (err, res) => {
-	  if (err) throw err
-	// console.log(res)
+	  if (err) console.log('error finding')
 	  res1.status(200).json(res.rows)
-	// conn.client.end()
 	});	  
 };
 
 function findbyid(id,res1){
 	conn.client.query("SELECT * FROM shippingaddress WHERE id = $1", [id], (err, res) => {
-		  if (err) throw err
-		// console.log(res)
-		  res1.status(200).json(res.rows[0])
-		// conn.client.end()
-		});	  
+		if (err) {
+			res1.status(200).json({
+						message: err.stack,
+					});
+			console.log(err.stack);
+		  } else {
+			res1.status(200).json(res.rows[0]);	
+		}});	  
 };
 
-function save(shippingaddress){
-		conn.client.query({
-		    name: 'insert shippingaddress',
-		    text: "INSERT INTO shippingaddress(streetandnumber,city,state,zipcode,country) values($1,$2,$3,$4,$5)",
-		    values:  [
-				shippingaddress.streetandnumber,
-				shippingaddress.city,
-				shippingaddress.state,
-				shippingaddress.zipcode,
-				shippingaddress.country]
+function save(shippingaddress, res1){
+		conn.client.query("INSERT INTO shippingaddress(streetandnumber,city,state,zipcode,country,idcustomer) values($1,$2,$3,$4,$5,$6) returning id",
+		    [shippingaddress.streetandnumber, shippingaddress.city, shippingaddress.state, shippingaddress.zipcode,	shippingaddress.country, shippingaddress.idcustomer],
+		    (err, res)=>{exc.predicError(err, res, res1)
 		});
 };
 
-function del(id){
+function del(id,res1){
 	if (id) {
-		conn.client.query({
-		    name: 'insert shippingaddress',
-		    text: "DELETE FROM shippingaddress WHERE id = $1",
-		    values: [id]
+		conn.client.query("DELETE FROM shippingaddress WHERE id = $1 returning id", [id], (err, res)=>{
+			exc.predicError(err, res,res1)
 		});
 	} 
 };

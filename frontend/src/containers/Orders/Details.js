@@ -11,7 +11,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import Moment from 'moment';
 
 const styles = theme => ({
 	  root: {
@@ -32,50 +32,7 @@ function createData(name, calories, fat, carbs, protein) {
 
 const rows = [
   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
-
-function SimpleTable(props) {
-  const { classes } = props;
-
-  return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell numeric>Calories</TableCell>
-            <TableCell numeric>Fat (g)</TableCell>
-            <TableCell numeric>Carbs (g)</TableCell>
-            <TableCell numeric>Protein (g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => {
-            return (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell numeric>{row.calories}</TableCell>
-                <TableCell numeric>{row.fat}</TableCell>
-                <TableCell numeric>{row.carbs}</TableCell>
-                <TableCell numeric>{row.protein}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
-}
-
-SimpleTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 
 class Example extends React.Component {
@@ -99,14 +56,10 @@ class Example extends React.Component {
 		 this.loadExample()
 		 }
 	 
-	
-	  
-	
-	 
 	 loadExample() {
 		 let order;
 		    const { match } = this.props
-		 //  console.log(this.props.params.id)
+		  console.log(this.props.params)
 		    const id = match.params.id  // take parameter url
 		    if (id) {
 		      // load the order data
@@ -149,7 +102,7 @@ class Example extends React.Component {
         <table >
 	        <thead>
 	        	<th> Order number: {numberorder}</th>
-	        	<th> Date: {date}</th>
+	        	<th> Date: {Moment(date).format('MMM d YYYY')}</th>
 	        </thead>
 	        <thead>
 	        	<th>Customer: {customer}</th>
@@ -161,6 +114,7 @@ class Example extends React.Component {
 		          <TableCell>Description</TableCell>
 		          <TableCell numeric>Weight(g)</TableCell>
 		          <TableCell numeric>Price</TableCell>
+		          <TableCell numeric>Total</TableCell>
 	        </TableRow>
       </TableHead>
         <TableBody>
@@ -171,6 +125,7 @@ class Example extends React.Component {
 			       <TableCell >{row.description}</TableCell>
 			       <TableCell >{row.weight}</TableCell>
 			       <TableCell >{row.price}</TableCell>
+			       <TableCell >{row.price * row.count}</TableCell>
 		    </TableRow>
 		          );
 		        })}

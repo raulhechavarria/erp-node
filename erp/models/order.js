@@ -29,32 +29,38 @@ function findTopCustomer(res1){
 
 function findbyid(id,res1){
 	conn.client.query("SELECT o.id, o.numberorder, o.date, o.idcustomer, o.paymenttype, c.name, c.phone, c.email FROM orders o inner join customer c on o.idcustomer = c.id WHERE o.id = $1", [id], (err, res) => {
-		  if (err) throw err
-		// console.log(res)
-		  res1.status(200).json(res.rows[0])
-		// conn.client.end()
-		});	  
+		if (err) {
+			res1.status(200).json({
+						message: err.stack,
+					});
+			console.log(err.stack);
+		  } else {
+			res1.status(200).json(res.rows[0]);
+		//	console.log(res.rows[0]);
+		  }
+	});	  
 
 };
+
 
 function save(order, res1){
 		  var  sql = 'INSERT INTO orders(numberorder,date, idcustomer, paymenttype) values($1,$2,$3,$4) RETURNING id';
 		  var  values = [ order.numberorder, order.date, order.idcustomer,  order.paymenttype];
-		  var idorders1;
 		  conn.client.query(sql, values, (err, res) => {
 			  exc.predicError(err, res,res1)
 			  if (!err) {
-					  idorders1 = res.rows[0].id;
+				  
+					var  idorders1 = res.rows[0].id;
 					  order.products.forEach( function(value, index, array) {
 						  const ordersproduct1 = ({
 							  idproduct : value.id,
+							  count : value.count,
 							  idorders: idorders1,
+							//  console.log()
 							});
 						  ordersproduct.save(ordersproduct1);  
 						});
 				  } 
-			  
-			  
 		});
 };
 

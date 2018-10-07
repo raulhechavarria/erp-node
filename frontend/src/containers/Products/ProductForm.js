@@ -38,7 +38,7 @@ class ProductForm extends Component {
     }
   }
 
-  onSubmit () {
+ onSubmit () {
     const { name, description, weight, price } = this.state
     const { match } = this.props
     const id = match.params.id
@@ -64,7 +64,9 @@ class ProductForm extends Component {
 
         })
     }
+    window.location.reload();
     this.props.history.push('/products')
+    
   }
 
   render () {
@@ -85,14 +87,17 @@ class ProductForm extends Component {
           </FormGroup>
           <FormGroup>
             <Label for='weight'>weight</Label>
-            <Input type='weight' name='weight' id='weight' value={weight} onChange={(e) => this.setState({ weight: e.target.value })} />
+            <Input type='number' name='weight' id='weight' value={weight} onChange={(e) => this.setState({ weight: e.target.value })} />
           </FormGroup>
           <FormGroup>
             <Label for='price'>Price</Label>
-            <Input type='text' name='price' id='price' value={price} onChange={(e) => this.setState({ price: e.target.value })} />
+            <Input type='number' name='price' id='price' value={price} onChange={(e) => this.setState({ price: e.target.value })} />
           </FormGroup>
           <Button color='primary' onClick={this.onSubmit}>Submit</Button>
           <Button onClick={() => this.props.history.push('/products')}>Cancel</Button>
+          
+          
+          
         </Form>
       </div>
     )

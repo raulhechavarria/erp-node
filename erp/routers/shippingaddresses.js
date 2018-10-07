@@ -1,7 +1,6 @@
 /**
  * http://usejsdoc.org/
  */
-
 const express1 = require("express");
 const router = express1.Router();
 const shippingaddress1 = require('../models/shippingaddress');
@@ -20,22 +19,16 @@ router.post('/', (req, res, next) =>{
 		city : req.body.city,
 		state : req.body.state,
 		zipcode : req.body.zipcode,
-		country : req.body.country
+		country : req.body.country,
+		idcustomer:req.body.idcustomer
 	});
+	console.log(shippingaddress)
+    shippingaddress1.save(shippingaddress, res)
 	
-    shippingaddress1.save(shippingaddress)
-	res.status(201).json({
-		message: 'handle post',
-		shippingaddress: shippingaddress
-	});
 });
 
 router.delete('/:shippingaddressId', (req, res, next) =>{
-	shippingaddress1.del(req.params.shippingaddressId)
-	res.status(200).json({
-		message: 'shippingaddress deleted',
-			shippingaddressId : req.params.shippingaddressId
-	});
+	shippingaddress1.del(req.params.shippingaddressId, res)
 });
 
 module.exports = router;

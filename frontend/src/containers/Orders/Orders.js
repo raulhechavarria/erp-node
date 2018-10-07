@@ -65,7 +65,7 @@ class Orders extends Component {
 
   render () {
     const { orders } = this.state
-    Moment.locale('en');
+    
     return (
       <div className='orders'>
         <div>
@@ -82,15 +82,15 @@ class Orders extends Component {
               
               <div className='col-md-3'>
             
-              {Moment(order.date).format('d MMM')}           
+              {Moment(order.date).format('MMM d YYYY')}           
               </div>
               <div className='col-md-3'>{order.total}</div>
               <div className='col-md-3'>
              
-              <a href={'/orders/edit/' + order.id}>Edit</a>
+             
            
                 <a href='' onClick={(e) => this.onDelete(e, order.id)}>Delete</a>
-                
+               
                 <a href={'/orders/details/' + order.id} >Report</a>
                 
               </div>

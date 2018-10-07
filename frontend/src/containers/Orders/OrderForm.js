@@ -1,8 +1,12 @@
 
 import React, { Component } from 'react'
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
+import { Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap'
 import axios from 'axios'
-import Select from 'react-select';
+import Select from 'react-select'
+import ProductSelect from './ProductSelect'
+//import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import DataTable from 'react-data-table-component'
+
 
 //import {loadCustomers} from '/Customer/Customers'
 class OrderForm extends Component {
@@ -15,10 +19,15 @@ class OrderForm extends Component {
       paymenttype: '',
       customers : [],
       products : [],
-      selectedproducts:[]
+      products1 : [],
+      selectedproducts:[],
+      idproduct:'',
+      count:'',
+      id:''
       
     }
     this.onSubmit = this.onSubmit.bind(this)
+    this.onSubmitProduct =this.onSubmitProduct.bind(this)
   }
   
 
@@ -68,7 +77,7 @@ class OrderForm extends Component {
   }
 
   onSubmit () {
-    const { numberorder, date, idcustomer , paymenttype,  selectedproducts } = this.state
+    const {products1, numberorder, date, idcustomer , paymenttype,  selectedproducts } = this.state
     const { match } = this.props
     const id = match.params.id
     const order = {
@@ -77,12 +86,15 @@ class OrderForm extends Component {
       date,
       idcustomer: idcustomer.value,
       paymenttype,
-      products: selectedproducts
+      products: products1
+      
+     // products: selectedproducts
     }
 
     if (!id) {
       // create new
       axios.post('/orders', order)
+      
         .then(function (response) {
         //	this.props.history.push('/orders')
         })
@@ -97,10 +109,28 @@ class OrderForm extends Component {
     window.location.reload();
     this.props.history.push('/orders')
   }
+  
+  onSubmitProduct () {
+	    const {id, name, count, idproduct , selectedproducts } = this.state
+	    const prod = {
+	    	      id:idproduct.id,
+	    	      idproduct,
+	    	      name:idproduct.name,
+	    	      count,
+	    	    }
+	    this.setState({products1: this.state.products1.concat(prod)})
+	 //   console.log(this.state.products)
+	  //  tasks: this.state.tasks.concat(this.state.inputText)
+	   
+	  }
 
   render () {
-    let { numberorder, date, idcustomer, paymenttype } = this.state
+
+	  let {id, idproduct, name, count, numberorder, date, idcustomer, paymenttype, products1 } = this.state
     const { match } = this.props
+ //   const { Checkbox } from 'react-md';
+ //   const handleIndeterminate = isIndeterminate => (isIndeterminate ? <FontIcon>indeterminate_check_box</FontIcon> : <FontIcon>check_box_outline_blank</FontIcon>);
+
 
     return (
       <div>
@@ -113,18 +143,31 @@ class OrderForm extends Component {
           
             <FormGroup>
             <Label for='date'>date</Label>
-            <Input type="date" name='date'      id='date'        value={date}           onChange={(e) => this.setState({ date: e.target.value })} / >
+            <Input type="date" name='date'      id='date' value={date} onChange={(e) => this.setState({ date: e.target.value })} / >
           </FormGroup>
           
-          <FormGroup>
+            <FormGroup>
   	        <Label for='idcustomer'>Customer</Label>
   	        <Select onChange={(value) => this.setState({ idcustomer: value })}  options={this.state.customers.map(c => ({ label: c.name, value: c.id, name: c.name}))} />
           </FormGroup>
 	       
-          <FormGroup>
-          <Label for='idproduct'>Product</Label>
-          <Select isMulti  onChange={(value) => this.setState({ selectedproducts: value })}  options={this.state.products} />
-          </FormGroup>  
+  	        
+  	       
+	          <FormGroup>
+		          <Label for='idproduct'>Products</Label>
+		          <Row>
+			          <Col><Select onChange={(value) => this.setState({ idproduct: value })}  options={this.state.products} /></Col>
+			          <Col><Input type='number' name='count' id='count' value={count}   onChange={(e) => this.setState({ count: e.target.value })}/></Col>
+			          <Col><Button color='primary' onClick={this.onSubmitProduct}> Submit product to order</Button></Col>
+		          </Row>
+		          
+	              
+	             
+	          </FormGroup>
+	          
+	        
+        
+       
           
           <FormGroup>
 	          <Label for='paymenttype'>Payment Type</Label>
@@ -137,9 +180,6 @@ class OrderForm extends Component {
 	          </Input>   
             </FormGroup>
             
-            
-           
-            
           
           
           <Button color='primary' onClick={this.onSubmit}>Submit</Button>
@@ -149,5 +189,7 @@ class OrderForm extends Component {
     )
   }
 }
+
+
 
 export default OrderForm

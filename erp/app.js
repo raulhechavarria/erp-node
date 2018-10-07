@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const productRouter = require('./routers/products');
-const shippingaddressRouter = require('./routers/shippingaddresss');
+const shippingaddressRouter = require('./routers/shippingaddresses');
 const customerRouter = require('./routers/customers');
 const ordersRouter = require('./routers/orders');
 const ordersproductRouter = require('./routers/ordersproducts');
@@ -27,7 +27,7 @@ const productdashboardRouter = require('./routers/productdashboard');
 
 // routers
 app.use('/products', productRouter);
-app.use('/shippingaddresss', shippingaddressRouter);
+app.use('/shippingaddresses', shippingaddressRouter);
 app.use('/customers', customerRouter);
 app.use('/orders', ordersRouter);
 app.use('/ordersproducts', ordersproductRouter);
