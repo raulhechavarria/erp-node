@@ -33,10 +33,8 @@ function save(customer,res1){
 		const text = "UPDATE customer SET name = $2, phone = $3, email = $4, streetandnumber = $5, city = $6, state = $7, zipcode = $8, country = $9 WHERE id = $1 returning id";
 		conn.client.query(text, values, (err, res) => {
 			exc.predicError(err, res,res1)
-			if (!err) {	  
+		/*	if (!err) {	  
 		var  idcustomer = res.rows[0].id;
-	//	console.log(idcustomer);
-	//	console.log(customer);
 		customer.shippingAddresses.forEach( function(value, index, array) {
 			  const shiAdd = ({
 				  streetandnumber: value.streetandnumber1,
@@ -46,9 +44,9 @@ function save(customer,res1){
 	    	      country: value.country1, 
 				  idcustomer: idcustomer
 				});
-			  shippingaddress.save(shiAdd);  
+			  shippingaddress.save(shiAdd,res);  
 			});
-	  }
+	  }*/
 		});
 	} else {
 		const values = [customer.name, customer.phone, customer.email, customer.streetandnumber, customer.city, customer.state, customer.zipcode, customer.country]		
@@ -57,8 +55,6 @@ function save(customer,res1){
 			exc.predicError(err, res,res1)
 			if (!err) {	  
 		var  idcustomer = res.rows[0].id;
-	//	console.log(idcustomer);
-	//	console.log(customer);
 		customer.shippingAddresses.forEach( function(value, index, array) {
 			  const shiAdd = ({
 				  streetandnumber: value.streetandnumber1,
@@ -68,7 +64,7 @@ function save(customer,res1){
 	    	      country: value.country1, 
 				  idcustomer: idcustomer
 				});
-			  shippingaddress.save(shiAdd);  
+			  shippingaddress.save1(shiAdd);  
 			});
 	  }
 		});	  

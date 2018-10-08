@@ -99,11 +99,12 @@ class CustomerForm extends Component {
       country,
       shippingAddresses
     }
-console.log(customer)
+    let idcust;
     if (!id) {
       // create new
       axios.post('/customers', customer)
         .then(function (response) {
+        //	idcust = response.data.id
         	alert(response.data.message)
         	//  this.loadCustomers()
         })

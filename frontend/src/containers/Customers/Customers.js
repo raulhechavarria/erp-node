@@ -23,7 +23,7 @@ class Customers extends Component {
       }]
     }
 
-    this.onSubmit = this.onSubmit.bind(this)
+  //  this.onSubmit = this.onSubmit.bind(this)
   }
 
   onDelete (e, id) {
@@ -40,11 +40,11 @@ class Customers extends Component {
       })
     }
   }
-
+/*
   onSubmit () {
     const { name, phone, email, streetandnumber, city, state, zipcode, country } = this.state
   }
- 
+ */
   componentDidMount () {
     // load customers
     this.loadCustomers()

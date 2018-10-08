@@ -26,9 +26,20 @@ router.post('/', (req, res, next) =>{
 		country : req.body.country,
 		idcustomer:req.body.idcustomer
 	});
-	console.log(shippingaddress)
     shippingaddress1.save(shippingaddress, res)
-	
+});
+
+router.put('/', (req, res, next) =>{
+	const shippingaddress = ({
+		id:req.body.id,
+		streetandnumber: req.body.streetandnumber,
+		city : req.body.city,
+		state : req.body.state,
+		zipcode : req.body.zipcode,
+		country : req.body.country,
+		idcustomer:req.body.idcustomer
+	});
+    shippingaddress1.save(shippingaddress, res)
 });
 
 router.delete('/:shippingaddressId', (req, res, next) =>{

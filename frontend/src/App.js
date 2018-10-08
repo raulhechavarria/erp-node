@@ -35,7 +35,9 @@ class App extends Component {
             <li>
               <Link to='/orders'>Orders</Link>
             </li>
-            
+            <li>
+            <Link to='/shippingaddresses'>Shipping Address</Link>
+          </li>
           </ul>
 
           <hr />

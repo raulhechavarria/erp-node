@@ -79,10 +79,6 @@ class ShippingAddresses extends Component {
               <div className='col-md-3'>
              
               <a href={'/shippingaddresses/edit/' + shippingaddress.id}>Edit</a>
-           
-                <a href='' onClick={(e) => this.onDelete(e, shippingaddress.id)}>Delete</a>
-                
-               
                 
               </div>
             </div>

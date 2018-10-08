@@ -15,7 +15,8 @@ class OrderForm extends Component {
       state: '',
       zipcode: '',
       country: '',
-      customers:[]
+      customers:[],
+      customer:{}
       
     }
     this.onSubmit = this.onSubmit.bind(this)
@@ -23,15 +24,18 @@ class OrderForm extends Component {
   
 
   componentDidMount () {
-	 this.loadCustomers() 
-	 this.loadShippingAddress() 
+	 this.loadShippingAddress()
+	 this.loadCustomer()
 	 }
   
-  loadCustomers() {
+
+
+  loadCustomer() {
 		// load customers
-		    return axios.get('/customers') ///axios llamasat http
+	  const idcustomer = this.state.idcustomer 
+		    return axios.get('/customers/' + idcustomer) ///axios llamasat http
 		      .then((result) => {
-			        this.setState({customers: result.data})		    	
+			        this.setState({customer: result.data})		    	
 		      })
 }
   
@@ -63,9 +67,9 @@ class OrderForm extends Component {
     const {  idcustomer , streetandnumber, city, state, zipcode, country  } = this.state
     const { match } = this.props
     const id = match.params.id
-    const order = {
+    const sa = {
       id,   
-      idcustomer: idcustomer.value,
+      idcustomer: idcustomer,
       streetandnumber, 
       city, 
       state, 
@@ -75,15 +79,15 @@ class OrderForm extends Component {
 
     if (!id) {
       // create new
-      axios.post('/shippingaddresses', order)
+      axios.post('/shippingaddresses', sa)
         .then(function (response) {
-        //	this.props.history.push('/shippingaddresses')
+        	alert(response.data.message)
         })
     } else {
       // update
-      axios.put('/shippingaddresses', order)
+      axios.put('/shippingaddresses', sa)
         .then(function (response) {
-        //	this.props.history.push('/shippingaddresses')
+        	alert(response.data.message)
         })
     }
     window.location.reload();
@@ -91,7 +95,7 @@ class OrderForm extends Component {
   }
 
   render () {
-    let { idcustomer,  streetandnumber, city, state, zipcode, country } = this.state
+    let { idcustomer, customer,  streetandnumber, city, state, zipcode, country } = this.state
     const { match } = this.props
 
     return (
@@ -121,7 +125,7 @@ class OrderForm extends Component {
           
         <FormGroup>
 	        <Label for='idcustomer'>Customer</Label>
-	        <Select onChange={(value) => this.setState({ idcustomer: value })}  options={this.state.customers.map(c => ({ label: c.name, value: c.id, name: c.name}))} />
+	        <Input type='text' name={customer.name} id='idcustomer' value={idcustomer}  />
       </FormGroup>
 	       
           <Button color='primary' onClick={this.onSubmit}>Submit</Button>
