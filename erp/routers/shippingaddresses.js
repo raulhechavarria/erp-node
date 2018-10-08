@@ -9,6 +9,10 @@ router.get('/:shippingaddressId', (req, res, next) =>{
 	shippingaddress1.findbyid(req.params.shippingaddressId,res)
 });
 
+router.get('/:shippingaddressId/:idcustomer', (req, res, next) =>{
+	shippingaddress1.findbyidcustomer1(req.params.idcustomer,res)
+});
+
 router.get('/', function (req, res) {
 	shippingaddress1.find(res);
 });

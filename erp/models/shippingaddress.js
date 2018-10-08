@@ -24,10 +24,23 @@ function findbyid(id,res1){
 		}});	  
 };
 
-function save(shippingaddress, res1){
+function findbyidcustomer1(id,res1){
+	conn.client.query("SELECT * FROM shippingaddress WHERE idcustomer = $1 ", [id], (err, res) => {
+		if (err) {
+			res1.status(200).json({
+						message: err.stack,
+					});
+			console.log(err.stack);
+		  } else {
+			res1.status(200).json(res.rows);	
+		}});	  
+};
+
+function save(shippingaddress){
 		conn.client.query("INSERT INTO shippingaddress(streetandnumber,city,state,zipcode,country,idcustomer) values($1,$2,$3,$4,$5,$6) returning id",
 		    [shippingaddress.streetandnumber, shippingaddress.city, shippingaddress.state, shippingaddress.zipcode,	shippingaddress.country, shippingaddress.idcustomer],
-		    (err, res)=>{exc.predicError(err, res, res1)
+		    (err, res)=>{
+		    	 if (err) console.log('error find top product')
 		});
 };
 
@@ -44,3 +57,4 @@ exports.save = save;
 exports.del = del;
 exports.find = find;
 exports.findbyid = findbyid;
+exports.findbyidcustomer1 = findbyidcustomer1

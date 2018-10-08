@@ -24,13 +24,10 @@ router.post('/', (req, res, next) =>{
 		city: req.body.city, 
 		state: req.body.state, 
 		zipcode: req.body.zipcode, 
-		country: req.body.country
+		country: req.body.country,
+		shippingAddresses: req.body.shippingAddresses
 	});
 	customer1.save(customer,res);
-/*res.status(200).json({
-		message: 'customer saved',
-		customer: customer
-	});*/
 });
 
 router.put('/', (req, res, next) =>{
@@ -43,7 +40,8 @@ router.put('/', (req, res, next) =>{
 		city: req.body.city, 
 		state: req.body.state, 
 		zipcode: req.body.zipcode, 
-		country: req.body.country
+		country: req.body.country,
+		shippingAddresses: req.body.shippingAddresses
 	});
 //	console.log(customer);
 	customer1.save(customer,res);

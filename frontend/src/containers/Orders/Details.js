@@ -102,7 +102,7 @@ class Example extends React.Component {
         <table >
 	        <thead>
 	        	<th> Order number: {numberorder}</th>
-	        	<th> Date: {Moment(date).format('MMM d YYYY')}</th>
+	        	<th> Date: {Moment(date).format('MMM Do YYYY')}</th>
 	        </thead>
 	        <thead>
 	        	<th>Customer: {customer}</th>

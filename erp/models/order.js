@@ -42,12 +42,16 @@ function findbyid(id,res1){
 
 
 function save(order, res1){
-		  var  sql = 'INSERT INTO orders(numberorder,date, idcustomer, paymenttype) values($1,$2,$3,$4) RETURNING id';
+	if (order.products.length < 1) {
+		res1.status(200).json({
+			message: 'Most be select at least one product'
+		});
+	} else {
+		 var  sql = 'INSERT INTO orders(numberorder,date, idcustomer, paymenttype) values($1,$2,$3,$4) RETURNING id';
 		  var  values = [ order.numberorder, order.date, order.idcustomer,  order.paymenttype];
 		  conn.client.query(sql, values, (err, res) => {
 			  exc.predicError(err, res,res1)
 			  if (!err) {
-				  
 					var  idorders1 = res.rows[0].id;
 					  order.products.forEach( function(value, index, array) {
 						  const ordersproduct1 = ({
@@ -60,6 +64,7 @@ function save(order, res1){
 						});
 				  } 
 		});
+	}
 };
 
 function del(id,res1){

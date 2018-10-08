@@ -81,10 +81,9 @@ class Orders extends Component {
               <div className='col-md-3'>{order.numberorder}</div>
               
               <div className='col-md-3'>
-            
-              {Moment(order.date).format('MMM d YYYY')}           
+              {Moment(order.date).format('MMM Do YYYY')}           
               </div>
-              <div className='col-md-3'>{order.total}</div>
+              <div className='col-md-3'> {Math.round(order.total*100)/100}</div>
               <div className='col-md-3'>
              
              

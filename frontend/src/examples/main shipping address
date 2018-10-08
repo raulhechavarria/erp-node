@@ -1,0 +1,24 @@
+/*      
+            <FormGroup>
+            <Label >Main Shipping Address</Label>
+            <Row>
+	          <Col><Label for='streetandnumber'>streetandnumber</Label>
+	            <Input type='text' name='streetandnumber' id='streetandnumber' value={streetandnumber} onChange={(e) => this.setState({ streetandnumber: e.target.value })} />
+		          </Col>
+	          <Col><Label for='city'>city</Label>
+	            <Input type='city' name='city' id='city' value={city} onChange={(e) => this.setState({ city: e.target.value })} />
+		         </Col>
+	          <Col><Label for='state'>state</Label>
+	            <Input type='state' name='state' id='state' value={state} onChange={(e) => this.setState({ state: e.target.value })} />
+		         </Col>
+	        </Row>
+	        <Row>
+		        <Col><Label for='zipcode'>zipcode</Label>
+	            <Input type='zipcode' name='zipcode' id='zipcode' value={zipcode} onChange={(e) => this.setState({ zipcode: e.target.value })} />
+		          </Col>
+		        <Col><Label for='country'>country</Label>
+	            <Input type='country' name='country' id='country' value={country} onChange={(e) => this.setState({ country: e.target.value })} />
+		          </Col>
+	         </Row>
+            </FormGroup>
+         */

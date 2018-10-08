@@ -55,13 +55,13 @@ class ProductForm extends Component {
       // create new
       axios.post('/products', product)
         .then(function (response) {
-        	
+        	alert(response.data.message)
         })
     } else {
       // update
       axios.put('/products', product)
         .then(function (response) {
-
+        	alert(response.data.message)
         })
     }
     window.location.reload();

@@ -13,11 +13,11 @@ router.get('/:orderId', (req, res, next) =>{
 router.get('/', function (req, res) {
 	order1.find(res);
 });
-
+/*
 router.get('/', function (req, res) {
 	order1.findTopCustomer(res);
 });
-
+*/
 router.post('/', (req, res, next) =>{
 	const order = ({
 		numberorder: req.body.numberorder, 

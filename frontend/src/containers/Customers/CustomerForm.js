@@ -1,8 +1,15 @@
 
 import React, { Component } from 'react'
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
+import { Form, FormGroup, Label, Input, Button, Row, Col  } from 'reactstrap'
 import axios from 'axios'
+import Select from 'react-select'
+import DataTable from 'react-data-table-component'
 
+//import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+//with es5
+var ReactBsTable = require('react-bootstrap-table');
+var BootstrapTable = ReactBsTable.BootstrapTable;
+var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 /*
 const Hello = () => {
 	return <a className="btn btn-danger">helhloo</a>
@@ -19,10 +26,19 @@ class CustomerForm extends Component {
       city:  '',
       state: '',
       zipcode: '',
-      country: ''
+      country: '',
+      
+      streetandnumber1: '',
+      city1:  '',
+      state1: '',
+      zipcode1: '',
+      country1: '',
+      shippingAddresses:[]
+      
     }
 
     this.onSubmit = this.onSubmit.bind(this)
+    this.onSubmitShippingAddress = this.onSubmitShippingAddress.bind(this)
     this.loadCustomer = this.loadCustomer.bind(this)
     }
 
@@ -52,11 +68,25 @@ class CustomerForm extends Component {
     }
   }
 
+  onSubmitShippingAddress () {
+	    const {streetandnumber1, city1, state1, zipcode1, country1} = this.state
+	    const ShippingAddr = {
+	    		id : Math.floor(Math.random() * Math.floor(1000)),
+	    		streetandnumber1,
+	    	      city1 ,
+	    	      state1 ,
+	    	      zipcode1 ,
+	    	      country1 
+	    	    }
+	   
+	    this.setState({shippingAddresses: this.state.shippingAddresses.concat(ShippingAddr)})
+	 }
+
+  
   onSubmit () {
-    const { name, phone, email, streetandnumber, city, state, zipcode, country } = this.state
+    const {shippingAddresses, name, phone, email, streetandnumber, city, state, zipcode, country } = this.state
     const { match } = this.props
     const id = match.params.id
-
     const customer = {
       id,
       name,
@@ -66,9 +96,10 @@ class CustomerForm extends Component {
       city, 
       state, 
       zipcode, 
-      country
+      country,
+      shippingAddresses
     }
-
+console.log(customer)
     if (!id) {
       // create new
       axios.post('/customers', customer)
@@ -91,7 +122,7 @@ class CustomerForm extends Component {
   
 
   render () {
-    const { name, phone, email, streetandnumber, city, state, zipcode, country } = this.state
+    const {shippingAddresses, name, phone, email, streetandnumber, city, state, zipcode, country,streetandnumber1, city1, state1, zipcode1, country1 } = this.state
     const { match } = this.props
 
     return (
@@ -110,26 +141,29 @@ class CustomerForm extends Component {
             <Label for='email'>Email</Label>
             <Input type='email' name='email' id='email' value={email} onChange={(e) => this.setState({ email: e.target.value })} />
           </FormGroup>
+      
+            
             <FormGroup>
-            <Label for='streetandnumber'>streetandnumber</Label>
-            <Input type='text' name='streetandnumber' id='streetandnumber' value={streetandnumber} onChange={(e) => this.setState({ streetandnumber: e.target.value })} />
-          </FormGroup>
-            <FormGroup>
-            <Label for='city'>city</Label>
-            <Input type='city' name='city' id='city' value={city} onChange={(e) => this.setState({ city: e.target.value })} />
-          </FormGroup>
-            <FormGroup>
-            <Label for='state'>state</Label>
-            <Input type='state' name='state' id='state' value={state} onChange={(e) => this.setState({ state: e.target.value })} />
-          </FormGroup>
-            <FormGroup>
-            <Label for='zipcode'>zipcode</Label>
-            <Input type='zipcode' name='zipcode' id='zipcode' value={zipcode} onChange={(e) => this.setState({ zipcode: e.target.value })} />
-          </FormGroup>
-          <FormGroup>
-            <Label for='country'>country</Label>
-            <Input type='country' name='country' id='country' value={country} onChange={(e) => this.setState({ country: e.target.value })} />
-          </FormGroup>
+
+		          <Label for='idShippingAddress'>Shipping Addresses</Label>
+		          <Row>
+			          <Col><Label for='streetandnumber1'>streetandnumber1</Label><Input type='text' id='streetandnumber1' value={streetandnumber1}   onChange={(e) => this.setState({ streetandnumber1: e.target.value })}/></Col>
+			          <Col><Label for='city1'>city</Label><Input type='city' name='city1' id='city1' value={city1}   onChange={(e) => this.setState({ city1: e.target.value })}/></Col>
+			          <Col><Label for='state1'>state</Label><Input type='state' id='state1' value={state1}   onChange={(e) => this.setState({ state1: e.target.value })}/></Col>
+			      </Row>
+			      <Row>
+			          <Col><Label for='zipcode1'>zipcode</Label><Input type='zipcode' name='zipcode1' id='zipcode1' value={zipcode1}   onChange={(e) => this.setState({ zipcode1: e.target.value })}/></Col>
+			          <Col><Label for='country1'>country</Label><Input type='country' name='country1' id='country1' value={country1}   onChange={(e) => this.setState({ country1: e.target.value })}/></Col>
+			          <Col><Button color='primary' onClick={this.onSubmitShippingAddress}> Submit Shipping Addres</Button></Col>
+		          </Row>
+		          <BootstrapTable data={shippingAddresses} striped hover>
+			          <TableHeaderColumn isKey dataField='id'>shippingAddresses ID</TableHeaderColumn>
+			          <TableHeaderColumn dataField='streetandnumber1'>streetandnumber</TableHeaderColumn>
+			          <TableHeaderColumn dataField='zipcode1'>zipcode</TableHeaderColumn>
+			      </BootstrapTable>
+	              
+            </FormGroup>
+            
           
             <Button color='primary' onClick={this.onSubmit}>Submit</Button>
           <Button onClick={() => this.props.history.push('/customers')}>Cancel</Button>

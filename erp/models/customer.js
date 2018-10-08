@@ -4,6 +4,7 @@
 
 const conn = require('../common/connect.js');
 const exc = require('../common/HandlerException.js')
+const shippingaddress = require('../models/shippingaddress')
 
 function find(res1){	
 	// conn.client.connect()
@@ -26,19 +27,54 @@ function findbyid(id,res1){
 };
 
 function save(customer,res1){
+	console.log(customer)
 	if (customer.id) {
 		const values = [customer.id, customer.name, customer.phone, customer.email, customer.streetandnumber, customer.city, customer.state, customer.zipcode, customer.country]
 		const text = "UPDATE customer SET name = $2, phone = $3, email = $4, streetandnumber = $5, city = $6, state = $7, zipcode = $8, country = $9 WHERE id = $1 returning id";
 		conn.client.query(text, values, (err, res) => {
 			exc.predicError(err, res,res1)
+			if (!err) {	  
+		var  idcustomer = res.rows[0].id;
+	//	console.log(idcustomer);
+	//	console.log(customer);
+		customer.shippingAddresses.forEach( function(value, index, array) {
+			  const shiAdd = ({
+				  streetandnumber: value.streetandnumber1,
+	    	      city : value.city1 ,
+	    	      state: value.state1 ,
+	    	      zipcode: value.zipcode1 ,
+	    	      country: value.country1, 
+				  idcustomer: idcustomer
+				});
+			  shippingaddress.save(shiAdd);  
+			});
+	  }
 		});
 	} else {
 		const values = [customer.name, customer.phone, customer.email, customer.streetandnumber, customer.city, customer.state, customer.zipcode, customer.country]		
 		const text = 'INSERT INTO customer(name,phone,email,streetandnumber, city, state, zipcode, country) values($1,$2,$3,$4,$5,$6,$7,$8) returning id'
 		conn.client.query(text, values, (err, res) => {
 			exc.predicError(err, res,res1)
+			if (!err) {	  
+		var  idcustomer = res.rows[0].id;
+	//	console.log(idcustomer);
+	//	console.log(customer);
+		customer.shippingAddresses.forEach( function(value, index, array) {
+			  const shiAdd = ({
+				  streetandnumber: value.streetandnumber1,
+	    	      city : value.city1 ,
+	    	      state: value.state1 ,
+	    	      zipcode: value.zipcode1 ,
+	    	      country: value.country1, 
+				  idcustomer: idcustomer
+				});
+			  shippingaddress.save(shiAdd);  
+			});
+	  }
 		});	  
 	}
+	 
+	
 };
 
 function del(res1,id){

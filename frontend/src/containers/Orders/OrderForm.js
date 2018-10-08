@@ -7,7 +7,6 @@ import ProductSelect from './ProductSelect'
 //import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import DataTable from 'react-data-table-component'
 
-
 //import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 //with es5
 var ReactBsTable = require('react-bootstrap-table');
@@ -30,8 +29,9 @@ class OrderForm extends Component {
       selectedproducts:[],
       idproduct:'',
       count:'',
-      id:''
-      
+      id:'',
+      shippingaddresses:[],
+      idshippingaddress:''
     }
     this.onSubmit = this.onSubmit.bind(this)
     this.onSubmitProduct =this.onSubmitProduct.bind(this)
@@ -42,6 +42,7 @@ class OrderForm extends Component {
 	 this.loadOrder()
 	 this.loadCustomers()
 	 this.loadProducts()
+	 this.loadshippinpaddressCustomer()
 	 this.setState({ numberorder : !this.state.numberorder ? '2018-' +  Math.floor(Math.random() * Math.floor(1000)) : this.state.numberorder} 
 	              /*,{ date : !this.state.date ? '' : this.state.date} */) 
 	 }
@@ -82,9 +83,28 @@ class OrderForm extends Component {
         });    	
     }
   }
+  
+  loadshippinpaddressCustomer(id) {
+	//  alert(id)
+	 // console.log(id)
+	  if (id) {
+		  return axios.get('/shippingaddresses/'+2+'/'+id) ///axios llamasat http
+	      .then((result) => {
+	    //	alert(id + result.data)
+	    	  		this.setState({shippingaddresses: result.data})	
+			//	}
+	      })
+	} else {
+		 return axios.get('/shippingaddresses') ///axios llamasat http
+	      .then((result) => {
+		        this.setState({shippingaddresses: result.data})		    	
+	      })
+	}
+	    
+  }
 
   onSubmit () {
-    const {products1, numberorder, date, idcustomer , paymenttype,  selectedproducts } = this.state
+    const {idshippingaddress, shippingaddresses, products1, numberorder, date, idcustomer , paymenttype,  selectedproducts } = this.state
     const { match } = this.props
     const id = match.params.id
     const order = {
@@ -93,26 +113,24 @@ class OrderForm extends Component {
       date,
       idcustomer: idcustomer.value,
       paymenttype,
-      products: products1
-      
+      products: products1,
+      idshippingaddress
      // products: selectedproducts
     }
 
     if (!id) {
       // create new
-      axios.post('/orders', order)
-      
+      axios.post('/orders', order)     
         .then(function (response) {
-        //	this.props.history.push('/orders')
+        	alert(response.data.message)
         })
     } else {
       // update
       axios.put('/orders', order)
         .then(function (response) {
-        //	this.props.history.push('/orders')
+        	alert(response.data.message)
         })
     }
-  //  this.context.history.push('/orders')
     window.location.reload();
     this.props.history.push('/orders')
   }
@@ -133,18 +151,14 @@ class OrderForm extends Component {
 	    if (flag) {
 	    	alert('product was added before')
 		} else {
-			this.setState({products1: this.state.products1.concat(prod),acount:666})
+			this.setState({products1: this.state.products1.concat(prod)})
 		}
 	 }
 
   render () {
 
-	  let {id, idproduct, name, count, numberorder, date, idcustomer, paymenttype, products1 } = this.state
+	  let {idshippingaddress, shippingaddresses, id, idproduct, name, count, numberorder, date, idcustomer, paymenttype, products1 } = this.state
     const { match } = this.props
- //   const { Checkbox } from 'react-md';
- //   const handleIndeterminate = isIndeterminate => (isIndeterminate ? <FontIcon>indeterminate_check_box</FontIcon> : <FontIcon>check_box_outline_blank</FontIcon>);
-
-
     return (
       <div>
         <h3>Order Data Id:{match.params.id}</h3>
@@ -161,10 +175,15 @@ class OrderForm extends Component {
           
             <FormGroup>
   	        <Label for='idcustomer'>Customer</Label>
-  	        <Select onChange={(value) => this.setState({ idcustomer: value })}  options={this.state.customers.map(c => ({ label: c.name, value: c.id, name: c.name}))} />
+  	        <Select onChange={(value) => {this.setState({ idcustomer: value }); this.loadshippinpaddressCustomer(this.state.idcustomer.value)}}  options={this.state.customers.map(c => ({ label: c.name, value: c.id, name: c.name}))} />
           </FormGroup>
 	       
-  	        
+  	      <FormGroup>
+	        <Label for='idshippingaddress'>Shipping Address</Label>
+	        <Select onChange={(value) => this.setState({ idshippingaddress: value })}  options={this.state.shippingaddresses.map(c => ({ label: c.streetandnumber, value: c.id, name: c.streetandnumber}))} />
+        </FormGroup>
+	       
+	        
   	       
 	          <FormGroup>
 		          <Label for='idproduct'>Products</Label>
