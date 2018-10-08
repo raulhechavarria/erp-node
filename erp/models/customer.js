@@ -33,7 +33,7 @@ function save(customer,res1){
 		const text = "UPDATE customer SET name = $2, phone = $3, email = $4, streetandnumber = $5, city = $6, state = $7, zipcode = $8, country = $9 WHERE id = $1 returning id";
 		conn.client.query(text, values, (err, res) => {
 			exc.predicError(err, res,res1)
-		/*	if (!err) {	  
+			if (!err) {	  
 		var  idcustomer = res.rows[0].id;
 		customer.shippingAddresses.forEach( function(value, index, array) {
 			  const shiAdd = ({
@@ -44,9 +44,9 @@ function save(customer,res1){
 	    	      country: value.country1, 
 				  idcustomer: idcustomer
 				});
-			  shippingaddress.save(shiAdd,res);  
+			  shippingaddress.save1(shiAdd);  
 			});
-	  }*/
+	  }
 		});
 	} else {
 		const values = [customer.name, customer.phone, customer.email, customer.streetandnumber, customer.city, customer.state, customer.zipcode, customer.country]		

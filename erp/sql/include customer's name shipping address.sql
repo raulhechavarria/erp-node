@@ -1,0 +1,1 @@
+select s.*, c.name from shippingaddress as s inner join customer as c on s.idcustomer = c.id    

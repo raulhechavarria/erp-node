@@ -6,7 +6,7 @@ const conn = require('../common/connect.js');
 const exc = require('../common/HandlerException.js')
 
 function find(res1){	
-	conn.client.query('select * from shippingaddress', (err, res) => {
+	conn.client.query('select s.*, c.name from shippingaddress as s inner join customer as c on s.idcustomer = c.id', (err, res) => {
 	  if (err) console.log('error finding')
 	  res1.status(200).json(res.rows)
 	});	  

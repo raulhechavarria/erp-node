@@ -20,7 +20,7 @@ class ShippingAddresses extends Component {
          shippingaddresses:[{}]
     }
 
-    this.onSubmit = this.onSubmit.bind(this)
+  //  this.onSubmit = this.onSubmit.bind(this)
   }
 
   onDelete (e, id) {
@@ -36,7 +36,7 @@ class ShippingAddresses extends Component {
       })
     }
   }
-
+/*
   onSubmit () {
     const {  streetandnumber, city, state, zipcode, country, idcustomer} = this.state
 
@@ -46,7 +46,7 @@ class ShippingAddresses extends Component {
 
     //   })
   }
-
+*/
   componentDidMount () {
     // load shippingaddresses
     this.loadShippingAddresses()
@@ -70,16 +70,18 @@ class ShippingAddresses extends Component {
           <div className='row'>
             <div className='col-md-3'>streetandnumber</div>
             <div className='col-md-3'>city</div>
+            <div className='col-md-3'>Customer</div>
             <div className='col-md-3'>Actions</div>   
             </div>
           {shippingaddresses.map((shippingaddress, i) =>
             <div className='row' key={i}>
               <div className='col-md-3'>{shippingaddress.streetandnumber}</div>
               <div className='col-md-3'>{shippingaddress.city}</div>
+              <div className='col-md-3'>{shippingaddress.name}</div>
               <div className='col-md-3'>
              
               <a href={'/shippingaddresses/edit/' + shippingaddress.id}>Edit</a>
-                
+              <a href='' onClick={(e) => this.onDelete(e, shippingaddress.id)}>Delete</a>
               </div>
             </div>
           )}

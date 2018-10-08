@@ -17,7 +17,7 @@ function find(res1){
 
 
 function findTopCustomer(res1){	
-	conn.client.query('SELECT c.id, c.name, sum(p.price * op.count)as total,sum(op.count)as amount FROM customer as c INNER JOIN orders as o ON c.id = o.idcustomer inner join ordersproduct as op on o.id = op.idorders inner join product as p on op.idproduct = p.id group by c.id, c.name order by total desc', (err, res) => {
+	conn.client.query('SELECT c.id, c.name, sum(p.price * op.count)as total,sum(op.count)as amount FROM customer as c INNER JOIN orders as o ON c.id = o.idcustomer inner join ordersproduct as op on o.id = op.idorders inner join product as p on op.idproduct = p.id group by c.id, c.name order by total asc', (err, res) => {
 	if (err) console.log(res.rows)
 	  
 	  res1.status(200).json(res.rows)
