@@ -5,7 +5,7 @@
 const express = require('express'),
       app = express(),
       bodyParser = require('body-parser'),
-      pg = require('pg'),
+   //   pg = require('pg'),
       cors = require('cors');// para llamar desde  cualquier lugar
 
 
